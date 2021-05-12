@@ -3,40 +3,31 @@ package org.ptyxiakh;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "measurement")
 public class Measurements
 {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "measurement_id")
-    private int id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @Column ( name = "date")
     private String date;
 
-    @Column ( name = "value")
     private double value;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "data_id")
-    private Data data;
-
-    public Measurements() {
+    public Measurements()
+    {
     }
 
-    public Measurements(int id, String date, double value) {
-        this.id = id;
+    public Measurements(String date, double value)
+    {
         this.date = date;
         this.value = value;
     }
 
-
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,14 +46,5 @@ public class Measurements
     public void setValue(double value) {
         this.value = value;
     }
-
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
-    }
-
 
 }

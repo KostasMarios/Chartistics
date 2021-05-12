@@ -197,10 +197,12 @@ public class JSON
     {
         return metadataList;
     }
+
 public static String getDataName()
 {
     return dataName;
 }
+
     public int getQuandleResponseCode()
     {
         return responseCode;

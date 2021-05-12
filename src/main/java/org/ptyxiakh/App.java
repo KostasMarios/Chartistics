@@ -17,6 +17,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        //Double doubleObj = 45.567832;
+        //Με το doubleValue() να δοκιμάσω να μετατρέψω τa Double
+        //double d = doubleObj.doubleValue();
+        //System.out.println(d);
         scene = new Scene(loadFXML("sample"), 640, 480);
         stage.setScene(scene);
         stage.setTitle("CharTistics");

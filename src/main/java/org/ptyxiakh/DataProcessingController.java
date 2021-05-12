@@ -291,7 +291,7 @@ public class DataProcessingController implements Initializable
     public void saveData(ActionEvent event)
     {
         JpaUtil jpaUtil = new JpaUtil();
-        jpaUtil.create(dataName);
+        jpaUtil.create(dataName,tableData);
     }
     public void startAugmentedDickeyFuller(ActionEvent event)
     {
