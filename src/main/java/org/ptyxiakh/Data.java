@@ -9,7 +9,8 @@ public class Data
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
-
+    //Bάζω @Column(unique = true) για αποφυγή ίδιων τιμών στην ΒΔ
+    @Column(unique = true)
     private String name;
 
    @OneToMany( targetEntity=Measurements.class,cascade = CascadeType.ALL,

@@ -10,44 +10,54 @@ import javafx.stage.Stage;
 
 public class Popup
 {
-    public static void display(int type)
+    Stage popupWindow;
+    Label label;
+    Button button;
+    VBox vBoxLayout;
+    Scene scene;
+
+    public Popup()
     {
-        Stage popupwindow=new Stage();
+        this.popupWindow = new Stage();
+        this.popupWindow.initModality(Modality.APPLICATION_MODAL);
+        this.label = new Label();
+        this.button = new Button("Close");
+        button.setOnAction(e -> this.popupWindow.close());
+        this.vBoxLayout = new VBox(10);
+        this.vBoxLayout.getChildren().addAll(this.label,this.button);
+        this.vBoxLayout.setAlignment(Pos.CENTER);
+        this.scene = new Scene(this.vBoxLayout,300, 270);
+    }
 
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("ΣΦΑΛΜΑ");
-        Label label1= new Label();
-
+    public void display(int type)
+    {
+        this.popupWindow.setTitle("ΣΦΑΛΜΑ");
         //Έλεγχος τύπου σφάλματος
         switch (type)
         {
-            case -2: label1.setText("Παρουσιάστηκε κάποιο σφάλμα,παρακαλώ προσπαθήστε ξανά!");
+            case -2: this.label.setText("Παρουσιάστηκε κάποιο σφάλμα,παρακαλώ προσπαθήστε ξανά!");
             break;
-            case -1: label1.setText("Ελένξτε την σύνδεσή σας στο δίκτυο!");
+            case -1: this.label.setText("Ελένξτε την σύνδεσή σας στο δίκτυο!");
             break;
-            case 0: label1.setText("Τα δεδομένα που ζητάτε δεν υπάρχουν!");
+            case 0: this.label.setText("Τα δεδομένα που ζητάτε δεν υπάρχουν!");
             break;
         }
-
-        Button button1= new Button("Close");
-
-
-        button1.setOnAction(e -> popupwindow.close());
-
-
-
-        VBox layout= new VBox(10);
-
-
-        layout.getChildren().addAll(label1, button1);
-
-        layout.setAlignment(Pos.CENTER);
-
-        Scene scene1= new Scene(layout, 300, 250);
-
-        popupwindow.setScene(scene1);
-
-        popupwindow.showAndWait();
+       this.popupWindow.setScene(this.scene);
+        this.popupWindow.showAndWait();
     }
-
+    //Μέθοδος εμφάνισης μηνυμάτων για την αποθήκευση των δεδομένων στη βάση δεδομένων
+    public  void sqlPopUp(int type)
+    {
+        this.popupWindow.setTitle("ΕΙΔΟΠΟΙΗΣΗ");
+        //Έλεγχος τύπου σφάλματος
+        switch (type)
+        {
+            case 1: label.setText("Αυτή η εγγραφή υπάρχει ήδη στη βάση δεδομένων!");
+                break;
+            case 2: label.setText("Τα δεδομένα αποθηκεύτηκαν!");
+                break;
+        }
+        this.popupWindow.setScene(this.scene);
+        this.popupWindow.showAndWait();
+    }
 }

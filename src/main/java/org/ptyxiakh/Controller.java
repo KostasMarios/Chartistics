@@ -273,7 +273,7 @@ public class Controller
         String urlString = "https://www.quandl.com/api/v3/datasets/";
         Map<String,String> dataItem = new HashMap<>();
 
-        //Όταν πατηθεί πάλι το κουμπί OK άδασειε τις μεταβλητές
+        //Όταν πατηθεί πάλι το κουμπί OK άδειασε τις μεταβλητές
         //για να μπουν τα νέα δεδομένα
         if(okButtonCounter>0)
         {
@@ -321,17 +321,19 @@ public class Controller
         }
 
         typeError=json.getQuandlData(urlString);
-        if ( typeError  ==-2 )
+        //Εμφάνισε το κατάλληλο μήνυμα σε περίπτωση που υπάρξει κάποιο πρόβλημα
+        if( (typeError==-2) || (typeError==-1) ||(typeError==0) )
         {
-            Popup.display(-2);
-        }
-        else if( typeError ==-1 )
-        {
-            Popup.display(-1);
-        }
-        else if ( typeError == 0 )
-        {
-            Popup.display(0);
+            Popup popup = new Popup();
+            switch (typeError)
+            {
+                case -2:popup.display(-2);
+                break;
+                case -1:popup.display(-1);
+                break;
+                case 0:popup.display(0);
+                break;
+            }
         }
         else
         {

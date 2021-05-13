@@ -21,11 +21,10 @@ public class JSON
     public static Double[] doubles;
     double[] primitiveDoubles;
     Collection<Double> values;
-    //initializing an input stream object to read json
+    //Αρχικοποίηση ενός αντικειμένους ροής εισόδου για την ανάγνωση json
     InputStream jsonStream;
-    //Json Map
+    //Δημιουργία LinkedHashMap,ώστε να διατηρείτε η σειρά των δεδομένων
     private static final Map<String,Double> jsonTableData = new LinkedHashMap<>();
-
     private static String dataName;
     //Θα επιστρέφει μια τιμη int ανάλογα με το response code
     //π.χ. εάν υπάρχει IOException θα στέλνω -1 ώστε μετά ο Controller
@@ -38,16 +37,15 @@ public class JSON
         try
         {
             URL url = new URL(stringUrl);
-            //Parse URL into HttpsURLConnection in order to open the connection in order to get the JSON data
+            //Ανέλυσε τη διεύθυνση URL στο HttpsURLConnection για να ανοίξει η σύνδεση προκειμένου να λειφθούν τα δεδομένα JSON
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
 
-            //Set the request to GET
+            //Όρισε το αίτημα σε GET
             httpsURLConnection.setRequestMethod("GET");
 
-            //Get the response status of the Rest API
+            //Λάβε την κατάσταση απόκρισης του Rest API
             responseCode = httpsURLConnection.getResponseCode();
             //System.out.println("Response code is: " +responseCode);
-
 
             //Έλεγχος σε περίπτωση που υπάρξει κάποιο σφάλμα
             if(responseCode != 200 && responseCode != 404)
@@ -71,17 +69,17 @@ public class JSON
                 //System.out.println("jsonStream is created");
                 Reader jsonStreamReader = new InputStreamReader(jsonStream, StandardCharsets.UTF_8);
                 //System.out.println("jsonStreamReader is created");
-                //Create reader to read json data from web
+                //Δημιούργήσε json αναγνώστη για να διαβάζει δεδομένα json από τον Ιστό
                 JsonReader reader = Json.createReader(jsonStreamReader);
                 //System.out.println("reader is created");
 
-                //Get the root json object
+                //Λάβε το ριζικό αντικείμενο json
                 JsonObject jsonObject = reader.readObject();
                 //System.out.println("jsonObject is created");
 
                 reader.close();
 
-                //Parsing the root object to access the JSON values
+                //Ανέλυσε το ριζικό αντικείμενο για πρόσβαση στις τιμές json
                 JsonObject datasetObject =jsonObject.getJsonObject("dataset");
                 metadataList.add(datasetObject.getString("name"));
                 dataName = metadataList.get(0);
@@ -90,7 +88,6 @@ public class JSON
                 metadataList.add(datasetObject.getString("newest_available_date"));
                 metadataList.add(datasetObject.getString("oldest_available_date"));
 
-                //Creating a json array object to get the values
                 //Δημιουργία πίνακα json για τα ονόματα των στηλών του πίνακα
                 JsonArray columnNames = datasetObject.getJsonArray("column_names");
                 //Διαδικασία διαχωρισμού των τιμών του πίνακα με κόμα

@@ -11,6 +11,7 @@ public class JpaUtil
     List <Measurements> measurementsList ;
     public void create(String name, Map<String,Double> tableData)
     {
+        boolean successfulStorage = true;
         measurementsList = new ArrayList<>();
         emf = Persistence.createEntityManagerFactory("CHARTISTICS");
         EntityManager entityManager = emf.createEntityManager();
@@ -25,12 +26,27 @@ public class JpaUtil
 //            entityManager.persist(measurement);
 //            measurementsList.add(measurement);
         });
-
-
         entityManager.persist(data);
-        entityManager.flush();
+        //Σε περίπτωση που παρουσιαστεί PersistenceException
+       //εμφανίσε μήνυμα διπλοεγγραφής
+        Popup popup = new Popup();
+        try
+        {
+            entityManager.flush();
+        }
+        catch (PersistenceException ex)
+        {
+
+            popup.sqlPopUp(1);
+            successfulStorage = false;
+        }
+
         entityManager.getTransaction().commit();
         entityManager.close();
         emf.close();
+        if(successfulStorage)
+        {
+            popup.sqlPopUp(2);
+        }
     }
 }
