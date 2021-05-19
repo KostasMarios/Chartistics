@@ -21,9 +21,11 @@ public class App extends Application {
         //Με το doubleValue() να δοκιμάσω να μετατρέψω τa Double
         //double d = doubleObj.doubleValue();
         //System.out.println(d);
-        scene = new Scene(loadFXML("sample"), 640, 480);
+        //width:640,height:480
+        scene = new Scene(loadFXML("startpage"));
         stage.setScene(scene);
-        stage.setTitle("CharTistics");
+        stage.setResizable(false);
+        stage.setTitle("Chartistics");
         stage.show();
     }
 
