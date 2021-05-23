@@ -42,10 +42,7 @@ public class Controller
 
     private ObservableList<Map<String, String>> dataItems = FXCollections.<Map<String, String>>observableArrayList();
 
-    private String diagramUrl="";
-
-//    StringBuffer urlBuffer = new StringBuffer("https://www.quandl.com/api/v3/datasets/");
-
+    //private String diagramUrl="";
 
     @FXML
     private TitledPane bp_TitledPane;
@@ -86,18 +83,14 @@ public class Controller
     @FXML
     private RadioButton  descRadioButton;
 
-//    @FXML
-//    private RadioButton pieChartButton;
-
-//    @FXML
-//    private RadioButton linesChartButton;
-
     @FXML
     private Button okButton;
 
     @FXML
-    private Button diagramButton;
+    private Button nextButton;
 
+    @FXML
+    private Button buckButton;
     @FXML
     private Accordion dataCategory_Accordion;
 
@@ -280,7 +273,7 @@ public class Controller
             dataItems.clear();
             metadataList.clear();
             tableView.getItems().clear();
-            diagramUrl="";
+           //diagramUrl="";
         }
 
         switch (dataCategory_Accordion.getExpandedPane().getId())
@@ -351,51 +344,45 @@ public class Controller
 
             tableView.getItems().addAll(dataItems);
             descriptionCol.setCellFactory(WRAPPING_CELL_FACTORY);
-            diagramButton.setVisible(true);
+            nextButton.setVisible(true);
         }
 
         okButtonCounter++;
     }
-
-    public void diagramClicked(ActionEvent event)
+    public void onBuckButton(ActionEvent event)
     {
         try
         {
-            Stage primaryStage =new Stage();
-            //primaryStage.initStyle(StageStyle.UNDECORATED);
-            Parent root =FXMLLoader.load(getClass().getResource("dataProcessing.fxml"));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
+            Stage stage = (Stage) buckButton.getScene().getWindow();
+            stage.close();
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
+            primaryStage.setTitle("Chartistics");
+            primaryStage.setScene(new Scene(root));
             primaryStage.show();
-
-            // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
-
-            //Φόρτωσε τη νέα σκηνή
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("dataProcessing.fxml"));
-//            Parent  basePageParent = loader.load();
-            //Parent basePageParent = FXMLLoader.load(getClass().getResource("dataProcessing.fxml"));
-
-            //Πάρε τον διαχειριστή της νέας σκηνής
-//            DataProcessingController dataProcessingController = loader.getController();
-//            dataProcessingController.showTableData();
-//
-//            //Δείξει την νέα σκηνή
-//            Scene basePageScene = new Scene(basePageParent);
-//            Stage dataProcessingPage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//            dataProcessingPage.hide();
-//            dataProcessingPage.setScene(basePageScene);
-//            dataProcessingPage.show();
         }
         catch(IOException ex)
         {
             ex.printStackTrace();
         }
-
-
-
     }
-
+    public void nextClicked(ActionEvent event)
+    {
+        try
+        {
+            Stage stage = (Stage) buckButton.getScene().getWindow();
+            stage.close();
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("dataProcessing.fxml"));
+            primaryStage.setTitle("Chartistics");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
     public static final Callback<TableColumn<Map,String>, TableCell<Map,String>> WRAPPING_CELL_FACTORY =
             new Callback<TableColumn<Map,String>, TableCell<Map,String>>()
             {
@@ -428,74 +415,4 @@ public class Controller
                 }
             };
 
-    //@FXML
-//    public void onButtonClicked(ActionEvent event)
-//    {
-//        json.start();
-//        if (pieChartButton.isSelected())
-//        {
-//            try
-//            {
-//                Parent pieChartParent = FXMLLoader.load(getClass().getResource("pieChart.fxml"));
-//                Scene pieChartScene = new Scene(pieChartParent);
-//
-//                //This line gets Stage information
-//                Stage pieChartWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-//                pieChartWindow.setScene(pieChartScene);
-//                pieChartWindow.show();
-//            }
-//            catch (IOException exception)
-//            {
-//                System.out.print(exception.getMessage());
-//            }
-//
-//        }
-//        else
-//        {
-//            try
-//            {
-//                Parent lineChartParent = FXMLLoader.load(getClass().getResource("lineChart.fxml"));
-//                Scene lineChartScene = new Scene(lineChartParent);
-//                //This line gets Stage information
-//                Stage lineChartWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-//                lineChartWindow.setScene(lineChartScene);
-//                lineChartWindow.show();
-//            }
-//            catch (IOException exception)
-//            {
-//                System.out.print(exception.getMessage());
-//            }
-//        }
-//    }
-
-//    @FXML
-//    public void onComboBoxSelected()
-//    {
-//        okButton.setDisable(false);
-//    }
-
-//    @FXML
-//    public void chartsButtonSelected(ActionEvent event)
-//    {
-//        if (pieChartButton.isSelected())
-//        {
-//            try
-//            {
-//                Parent pieChartParent = FXMLLoader.load(getClass().getResource("pieChart.fxml"));
-//                Scene pieChartScene = new Scene(pieChartParent);
-//
-//                //This line gets Stage information
-//                Stage pieChartWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-//                pieChartWindow.setScene(pieChartScene);
-//                pieChartWindow.show();
-//            }
-//            catch (IOException exception)
-//            {
-//                System.out.print(exception.getMessage());
-//            }
-//
-//        }
-//        else
-//            System.out.println("Lines Chart is selected.");
-//    }
 }

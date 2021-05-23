@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -75,6 +76,9 @@
                             </content>
                         </TitledPane>
                     </panes>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Accordion>
                 <Label text="ΧΩΡΕΣ:">
                     <HBox.margin>
@@ -85,6 +89,9 @@
                     <HBox.margin>
                         <Insets left="1.0" />
                     </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </ComboBox>
             </children>
         </HBox>
@@ -113,11 +120,17 @@
                             <toggleGroup>
                                 <ToggleGroup fx:id="orderToggleGroup" />
                             </toggleGroup>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </RadioButton>
                         <RadioButton fx:id="descRadioButton" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" selected="true" text="Φθίνουσα" toggleGroup="$orderToggleGroup">
                             <HBox.margin>
                                 <Insets left="8.0" />
                             </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </RadioButton>
                     </children>
                 </HBox>
@@ -151,15 +164,29 @@
                 <Insets left="5.0" top="50.0" />
             </VBox.margin>
             <children>
+            <Button fx:id="buckButton" mnemonicParsing="false" onAction="#onBuckButton" prefHeight="26.0" prefWidth="115.0" text="Επιστροφή" wrapText="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
                 <Button fx:id="okButton" mnemonicParsing="false" onAction="#okClicked" prefHeight="26.0" prefWidth="72.0" text="OK">
-                    <HBox.margin>
-                        <Insets left="5.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="diagramButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#diagramClicked" prefHeight="26.0" prefWidth="97.0" text="Επόμενο" visible="false">
                     <HBox.margin>
                         <Insets left="20.0" />
                     </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Button fx:id="nextButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#nextClicked" prefHeight="26.0" prefWidth="97.0" text="Επόμενο" visible="false">
+                    <HBox.margin>
+                        <Insets left="20.0" />
+                    </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
             </children>
         </HBox>

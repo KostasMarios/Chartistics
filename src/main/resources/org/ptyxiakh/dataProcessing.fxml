@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -53,17 +54,29 @@
                            <toggleGroup>
                               <ToggleGroup fx:id="diagramType" />
                            </toggleGroup>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </RadioButton>
-                        <RadioButton fx:id="pieChartButton" mnemonicParsing="false" text="Διάγραμμα Πίτας" toggleGroup="$diagramType" />
+                        <RadioButton fx:id="pieChartButton" mnemonicParsing="false" text="Διάγραμμα Πίτας" toggleGroup="$diagramType">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></RadioButton>
                      </children>
                   </VBox>
                   <HBox layoutX="14.0" layoutY="654.0">
                      <children>
-                        <Button fx:id="buckButton" mnemonicParsing="false" onAction="#onBuckButton" text="Πίσω" />
+                        <Button fx:id="buckButton" mnemonicParsing="false" onAction="#onBuckButton" text="Πίσω">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveData" text="Αποθήκευση" wrapText="true">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
                   </HBox>
@@ -96,6 +109,9 @@
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                               <Label fx:id="stationarityLabel" prefHeight="69.0" prefWidth="260.0" visible="false" wrapText="true">
                                  <HBox.margin>
@@ -139,7 +155,10 @@
                         </HBox>
                         <HBox prefHeight="26.0" prefWidth="353.0">
                            <children>
-                              <Button fx:id="differencingButton" mnemonicParsing="false" onAction="#startDifferencing" text="Differencing" visible="false" wrapText="true" />
+                              <Button fx:id="differencingButton" mnemonicParsing="false" onAction="#startDifferencing" text="Differencing" visible="false" wrapText="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                               <Label fx:id="isStationaryLabel" visible="false" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="10.0" top="5.0" />
@@ -163,10 +182,13 @@
                               <Insets left="10.0" top="5.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="acfPlotButton" mnemonicParsing="false" onAction="#startAcfPlot" text="acfPlot" visible="false" wrapText="true">
+                              <Button fx:id="acfPlotButton" mnemonicParsing="false" onAction="#startAcfPlot" text="Acf Plot" visible="false" wrapText="true">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                               <Label fx:id="qParameterLabel" text="Εισάγεται την τιμή q για την μέθοδο ARIMA:" visible="false" wrapText="true">
                                  <HBox.margin>
@@ -198,7 +220,10 @@
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="pacfPlotButton" mnemonicParsing="false" text="Pacf Plot" visible="false" wrapText="true" />
+                              <Button fx:id="pacfPlotButton" mnemonicParsing="false" text="Pacf Plot" visible="false" wrapText="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                               <HBox>
                                  <children>
                                     <Label fx:id="pParameterLabel" text="Εισάγεται την τιμή p για την μέθοδο ARIMA:" visible="false" wrapText="true">
@@ -241,7 +266,10 @@
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="arimaButton" mnemonicParsing="false" onAction="#startArima" text="ARIMA" visible="false" wrapText="true" />
+                              <Button fx:id="arimaButton" mnemonicParsing="false" onAction="#startArima" text="ARIMA" visible="false" wrapText="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                               <Label fx:id="forecastSizeLabel" text="Αριθμός προβλέψεων:" visible="false" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="10.0" top="5.0" />

@@ -27,7 +27,7 @@ public class StartPageController
     private Button e_button;
 
     @FXML
-    private Button cancel_button;
+    private Button buck_button;
 
     @FXML
     private Button ok_button;
@@ -57,7 +57,7 @@ public class StartPageController
             startpage_listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
             startpage_listView.setVisible(true);
             startpage_listView.getSelectionModel().select(0);
-            cancel_button.setVisible(true);
+            buck_button.setVisible(true);
             ok_button.setVisible(true);
 //            for (String s : list)
 //            {
@@ -107,5 +107,23 @@ public class StartPageController
             }
         em.close();
         emf.close();
+    }
+
+    public  void onBuckButton(ActionEvent event)
+    {
+        try
+        {
+            Stage stage = (Stage) e_button.getScene().getWindow();
+            stage.close();
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
+            primaryStage.setTitle("Chartistics");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 }

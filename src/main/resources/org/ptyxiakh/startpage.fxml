@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -27,7 +28,10 @@
                   <Image url="@../../database.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button fx:id="e_button" layoutX="414.0" layoutY="184.0" mnemonicParsing="false" onAction="#InternetDataButtonClicked" prefHeight="118.0" prefWidth="145.0" text="Διαδίκτυο" wrapText="true">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
@@ -36,9 +40,18 @@
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <ListView fx:id="startpage_listView" layoutX="155.0" layoutY="163.0" prefHeight="278.0" prefWidth="351.0" visible="false" />
-      <Button fx:id="cancel_button" layoutX="155.0" layoutY="465.0" mnemonicParsing="false" text="Άκυρο" visible="false" wrapText="true" />
-      <Button fx:id="ok_button" layoutX="447.0" layoutY="465.0" mnemonicParsing="false" onAction="#okButtonClicked" prefHeight="24.0" prefWidth="59.0" text="ΟΚ" visible="false" wrapText="true" />
+      <Button fx:id="buck_button" layoutX="155.0" layoutY="465.0" mnemonicParsing="false" onAction="#onBuckButton" text="Επιστροφή" visible="false" wrapText="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="ok_button" layoutX="447.0" layoutY="465.0" mnemonicParsing="false" onAction="#okButtonClicked" prefHeight="24.0" prefWidth="59.0" text="ΟΚ" visible="false" wrapText="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </AnchorPane>
