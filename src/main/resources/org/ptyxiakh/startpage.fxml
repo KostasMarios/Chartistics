@@ -21,6 +21,11 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
+      <Label fx:id="noDataLabel" layoutX="161.0" layoutY="325.0" text="Δεν υπάρχουν αποθηκευμένα δεδομένα!!!" visible="false" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
       <Button fx:id="db_button" layoutX="95.0" layoutY="184.0" mnemonicParsing="false" onAction="#DataBaseButtonClicked" prefHeight="118.0" prefWidth="145.0" text="Αποθηκευμένα" wrapText="true">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">

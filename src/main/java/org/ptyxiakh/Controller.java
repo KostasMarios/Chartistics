@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -265,7 +266,6 @@ public class Controller
         int typeError;
         String urlString = "https://www.quandl.com/api/v3/datasets/";
         Map<String,String> dataItem = new HashMap<>();
-
         //Όταν πατηθεί πάλι το κουμπί OK άδειασε τις μεταβλητές
         //για να μπουν τα νέα δεδομένα
         if(okButtonCounter>0)
@@ -346,7 +346,6 @@ public class Controller
             descriptionCol.setCellFactory(WRAPPING_CELL_FACTORY);
             nextButton.setVisible(true);
         }
-
         okButtonCounter++;
     }
     public void onBuckButton(ActionEvent event)
@@ -366,17 +365,31 @@ public class Controller
             ex.printStackTrace();
         }
     }
+    /**
+     * Όταν κληθεί αυτή η μέθοδος,τα δεδομένα που επιλέξαμε
+     * θα εμφανιστούν στο παράθυρο επεξεργασίας
+     */
     public void nextClicked(ActionEvent event)
     {
+        Map <String,Double> tableData = JSON.getJsonTableData();
+        String dataName = JSON.getDataName();
         try
         {
-            Stage stage = (Stage) buckButton.getScene().getWindow();
-            stage.close();
-            Stage primaryStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("dataProcessing.fxml"));
-            primaryStage.setTitle("Chartistics");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("dataProcessing.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) nextButton.getScene().getWindow();
+            DataProcessingController dataProcessingController = loader.getController();
+            dataProcessingController.setNetSource(true);
+            dataProcessingController.processData(tableData,dataName);
+//            stage.close();
+//            Stage primaryStage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Chartistics");
+            stage.show();
+//            primaryStage.setScene(new Scene(root));
+//            primaryStage.show();
         }
         catch(IOException ex)
         {

@@ -178,6 +178,8 @@ public class DataProcessingController implements Initializable
 
     private int lagValue;
 
+    private boolean netSource;
+
     //Δήλωση παραμέτρων Arima
     int d,q,p;
 
@@ -187,12 +189,38 @@ public class DataProcessingController implements Initializable
         d=0;
         q=0;
         p=0;
+        netSource=false;
         qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι\nπάνω από το θετικό όριο.");
         qParameterText.setVisible(false);
-        dataName = JSON.getDataName();
-        dataNameLabel.setText(dataName);
-        //Πάρε τα δεομένα του πίνακα από το JSON
-         tableData = JSON.getJsonTableData();
+//        dataName = JSON.getDataName();
+//        dataNameLabel.setText(dataName);
+//        //Πάρε τα δεομένα του πίνακα από το JSON
+//         tableData = JSON.getJsonTableData();
+
+
+       firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
+
+//       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
+    }
+
+    public boolean isNetSource()
+    {
+        return netSource;
+    }
+
+    public void setNetSource(boolean netSource) {
+        this.netSource = netSource;
+    }
+
+    public void processData(Map<String,Double> tableData, String dataName)
+    {
+//        if (source.equals("internet"))
+//        {
+            //dataName = JSON.getDataName();
+            dataNameLabel.setText(dataName);
+            //Πάρε τα δεομένα του πίνακα από το JSON
+//            tableData = JSON.getJsonTableData();
+//        }
 
         //Συμπλήρωσε με μεμονωμένες τιμές την στήλη ημ/νία
         dateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, String>, ObservableValue<String>>()
@@ -222,7 +250,7 @@ public class DataProcessingController implements Initializable
         dataTable.getItems().addAll(items);
 
         //Επιλογή διαγράμματος
-       diagramType.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
+        diagramType.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
         {
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle old_toggle, Toggle new_toggle)
@@ -265,21 +293,34 @@ public class DataProcessingController implements Initializable
                 }
             }
         });
-       firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
-//       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
     }
-
     //Μέθοδος επιστροφής στην προηγούμενη σκηνή
     public void onBuckButton(ActionEvent event)
     {
         try
         {
-            Parent basePageParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
-            Scene basePageScene = new Scene(basePageParent);
-            Stage dataProcessingPage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            dataProcessingPage.hide();
-            dataProcessingPage.setScene(basePageScene);
-            dataProcessingPage.show();
+            if(netSource)
+            {
+                Parent basePageParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+                Scene basePageScene = new Scene(basePageParent);
+                Stage dataProcessingPage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                dataProcessingPage.hide();
+                dataProcessingPage.setScene(basePageScene);
+                dataProcessingPage.show();
+            }
+            else
+            {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("startpage.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) buckButton.getScene().getWindow();
+                StartPageController startPageController = loader.getController();
+                startPageController.DataBaseButtonClicked(event);
+                stage.setScene(scene);
+                stage.setTitle("Chartistics");
+                stage.show();
+            }
         }
         catch(IOException ex)
         {
