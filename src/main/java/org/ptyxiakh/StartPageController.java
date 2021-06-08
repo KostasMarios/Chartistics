@@ -44,15 +44,8 @@ public class StartPageController
 
     public void DataBaseButtonClicked(ActionEvent event)
     {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("select d.name from Data d");
-        List<String> list = query.getResultList();
-        em.close();
-        emf.close();
-
-        //Να μην ξεχάσω να εμφανίζω κάτι σε περίπτωση που η βάση είναι κενή
+        List<String> list = DataQuery.getDataName();
+    //Εμφάνισε μήνυμα ότι η βάση είναι κενή
         if(list.isEmpty())
             noDataLabel.setVisible(true);
         else
@@ -90,28 +83,8 @@ public class StartPageController
     {
         Map<String,Double> tableData = new LinkedHashMap<>();
         String dataName= " ";
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        //System.out.println("Selected data name:"+startpage_listView.getSelectionModel().getSelectedItem());
         String name = startpage_listView.getSelectionModel().getSelectedItem();
-        Query query = em.createQuery("select d from Data d");
-        List<Data> list = query.getResultList();
-        //System.out.println("Mesaurments date for selected item");
-        for (Data data: list)
-            {
-//                System.out.println("Data name:"+ data.getName());
-                if(data.getName().equals(name))
-                {
-                    dataName=data.getName();
-                    List<Measurements> listMeasurements = data.getMeasurementsList();
-                    for (Measurements measurements : listMeasurements)
-//                        System.out.println("Date:" + measurements.getDate() + "Value:" + measurements.getValue());
-                        tableData.put(measurements.getDate(),measurements.getValue());
-                }
-            }
-        em.close();
-        emf.close();
+        tableData = DataQuery.findData(name);
 
         try
         {

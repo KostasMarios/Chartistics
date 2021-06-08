@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Κλάση αποθήκευσης των οντοτήτων στη βάση δεδομένων
+ * */
 public class JpaUtil
 {
     private static EntityManagerFactory emf;
