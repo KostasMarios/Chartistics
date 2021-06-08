@@ -212,8 +212,9 @@ public class DataProcessingController implements Initializable
         this.netSource = netSource;
     }
 
-    public void processData(Map<String,Double> tableData, String dataName)
+    public void processData(Map<String,Double> tableDataParam, String dataName)
     {
+            tableData=tableDataParam;
 //        if (source.equals("internet"))
 //        {
             //dataName = JSON.getDataName();
@@ -244,7 +245,7 @@ public class DataProcessingController implements Initializable
             }
         });
         //Δημιουργία ObservableArrayList με τα δεδομένα του Map
-        ObservableList<Map.Entry<String, Double>> items = FXCollections.observableArrayList(tableData.entrySet());
+        ObservableList<Map.Entry<String, Double>> items = FXCollections.observableArrayList(tableDataParam.entrySet());
 
         //Βάλε τα δεδομένα του ObservableList στο TableView
         dataTable.getItems().addAll(items);
@@ -267,7 +268,7 @@ public class DataProcessingController implements Initializable
                         //FXMLLoader lineChartLoader = new FXMLLoader(getClass().getResource("lineChart.fxml"));
                         lineChart.setVisible(true);
                         lineChart.setTitle(dataName);
-                        for(Map.Entry<String,Double> mapEntry : tableData.entrySet())
+                        for(Map.Entry<String,Double> mapEntry : tableDataParam.entrySet())
                         {
                             seriesLineChart.getData().add(new XYChart.Data(mapEntry.getKey(),mapEntry.getValue()));
                         }
@@ -283,7 +284,7 @@ public class DataProcessingController implements Initializable
                         pieChart.setTitle(dataName);
                         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-                        for(Map.Entry<String,Double> mapEntry : tableData.entrySet())
+                        for(Map.Entry<String,Double> mapEntry : tableDataParam.entrySet())
                         {
                             pieChartData.add(new PieChart.Data(mapEntry.getKey(),mapEntry.getValue()));
                         }
@@ -318,6 +319,7 @@ public class DataProcessingController implements Initializable
                 StartPageController startPageController = loader.getController();
                 startPageController.DataBaseButtonClicked(event);
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.setTitle("Chartistics");
                 stage.show();
             }

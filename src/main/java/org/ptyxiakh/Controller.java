@@ -358,6 +358,7 @@ public class Controller
             Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
             primaryStage.setTitle("Chartistics");
             primaryStage.setScene(new Scene(root));
+            primaryStage.setResizable(false);
             primaryStage.show();
         }
         catch(IOException ex)

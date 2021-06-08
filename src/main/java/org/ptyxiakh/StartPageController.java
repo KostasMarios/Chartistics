@@ -91,13 +91,14 @@ public class StartPageController
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("dataProcessing.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
             Stage stage = (Stage) ok_button.getScene().getWindow();
+            stage.close();
+            Stage primaryStage = new Stage();
             DataProcessingController dataProcessingController = loader.getController();
             dataProcessingController.processData(tableData,dataName);
-            stage.setScene(scene);
-            stage.setTitle("Chartistics");
-            stage.show();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Chartistics");
+            primaryStage.show();
         }
         catch(IOException ex)
         {
@@ -115,6 +116,7 @@ public class StartPageController
             Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
             primaryStage.setTitle("Chartistics");
             primaryStage.setScene(new Scene(root));
+            primaryStage.setResizable(false);
             primaryStage.show();
         }
         catch(IOException ex)
