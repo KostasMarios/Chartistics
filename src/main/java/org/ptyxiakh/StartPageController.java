@@ -1,9 +1,15 @@
 package org.ptyxiakh;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,9 +21,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class StartPageController
 {
@@ -42,24 +50,52 @@ public class StartPageController
     @FXML
     private Label noDataLabel;
 
+    @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
+    private Label dataLoadingLabel;
+
+    private Task<ObservableList<String>> task;
+
     public void DataBaseButtonClicked(ActionEvent event)
     {
-        List<String> list = DataQuery.getDataName();
-    //Εμφάνισε μήνυμα ότι η βάση είναι κενή
-        if(list.isEmpty())
-            noDataLabel.setVisible(true);
-        else
-        {
-            startpage_label.setText("Επίλεξτε 1 από τα δεδομένα:");
-            e_button.setVisible(false);
-            db_button.setVisible(false);
-            startpage_listView.getItems().setAll(list);
-            startpage_listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-            startpage_listView.setVisible(true);
-            startpage_listView.getSelectionModel().select(0);
-            buck_button.setVisible(true);
-            ok_button.setVisible(true);
-        }
+        progressIndicator.setVisible(true);
+        dataLoadingLabel.setVisible(true);
+        task = new Task<ObservableList<String>>() {
+            @Override
+            protected ObservableList<String> call() throws Exception
+            {
+                ObservableList<String> listView = FXCollections.observableArrayList();
+                listView.setAll(DataQuery.getDataName());
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        progressIndicator.setVisible(false);
+                        dataLoadingLabel.setVisible(false);
+                        startpage_listView.setItems(listView);
+                        //Εμφάνισε μήνυμα ότι η βάση είναι κενή
+                        if(startpage_listView.getItems().isEmpty())
+                            noDataLabel.setVisible(true);
+                        else
+                        {
+                            startpage_label.setText("Επίλεξτε 1 από τα δεδομένα:");
+                            e_button.setVisible(false);
+                            db_button.setVisible(false);
+                            startpage_listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                            startpage_listView.setVisible(true);
+                            startpage_listView.getSelectionModel().select(0);
+                            buck_button.setVisible(true);
+                            ok_button.setVisible(true);
+                        }
+                    }
+                });
+                return listView;
+            }
+        };
+        new Thread(task).start();
     }
 
     public void InternetDataButtonClicked(ActionEvent event)
@@ -124,4 +160,5 @@ public class StartPageController
             ex.printStackTrace();
         }
     }
+
 }
