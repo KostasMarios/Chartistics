@@ -24,12 +24,14 @@ public class JSON
     //Αρχικοποίηση ενός αντικειμένους ροής εισόδου για την ανάγνωση json
     InputStream jsonStream;
     //Δημιουργία LinkedHashMap,ώστε να διατηρείτε η σειρά των δεδομένων
-    private static final Map<String,Double> jsonTableData = new LinkedHashMap<>();
+    private static  Map<String,Double> jsonTableData = new LinkedHashMap<>();
     private static String dataName;
+
     //Θα επιστρέφει μια τιμη int ανάλογα με το response code
     //π.χ. εάν υπάρχει IOException θα στέλνω -1 ώστε μετά ο Controller
     //να καλέσει την κλάση(που θα φτιάξω) για τo Pop up window,
     //παρόμοια στα υπόλοιπα
+
     public int getQuandlData(String stringUrl)
     {
         int arraySize=1;
@@ -37,6 +39,8 @@ public class JSON
         try
         {
             URL url = new URL(stringUrl);
+            jsonTableData.clear();
+            //System.out.println("JSON class url_String:"+stringUrl);
             //Ανέλυσε τη διεύθυνση URL στο HttpsURLConnection για να ανοίξει η σύνδεση προκειμένου να λειφθούν τα δεδομένα JSON
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
 
@@ -94,6 +98,7 @@ public class JSON
                 //Εάν τα ονόματα των στηλών είναι περισσότερα από ένα, χρησμοποιούμε κόμα
                 for(JsonValue value : columnNames)
                 {
+                    //System.out.println("JSON class columnsNames for:"+value.toString());
                     valueString += value.toString().replaceAll("\"","");
                     if (arraySize < columnNames.size())
                         valueString += ",";
@@ -108,10 +113,13 @@ public class JSON
                 JsonArray arrayObj = datasetObject.getJsonArray("data");
                 for(JsonValue value : arrayObj)
                 {
+                    //System.out.println("JSON class arrayObj for:"+value.toString());
                     if(value.toString().startsWith("[") && value.toString().endsWith("]"))
                     {
                         String jsonData = value.toString().replaceAll("(\\[|\\])","");
                         String[] dataArray = jsonData.trim().split(",");
+//                        System.out.println("JSON class dataArray[0]:"+dataArray[0]);
+//                        System.out.println("JSON class dataArray[1]:"+dataArray[1]);
                         jsonTableData.put(dataArray[0].replaceAll("\"","").trim(),Double.valueOf(dataArray[1].trim()));
                     }
                 }

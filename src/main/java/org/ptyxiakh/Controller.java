@@ -5,6 +5,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,13 +129,25 @@ public class Controller
     @FXML
     private HBox secondInvisibleHbox;
 
+    @FXML
+    private HBox dataLoadingHbox;
+
+    @FXML
+    private Label dataLoadingLabel;
+
+    @FXML
+    private ProgressIndicator  progressIndicator;
+
+    private Task<Void> task;
+
     //Βάζουμε true επειδή η φθίνουσα είναι τιμή προεπιλογής
     private boolean descOrderSelected = true;
 
     //Η μέθοδος αυτή δίνει τις επιλογές για τα δεδομένα,την χώρα και την σειρά
     public void initialize()
     {
-
+        //Δημιουργία αντικειμένου JSON
+        json = new JSON();
         readFiles = new ReadFiles();
         readFiles.readFileData("xwres.txt");
         mapHelper = readFiles.getFileData();
@@ -244,28 +257,29 @@ public class Controller
                 {
                     if(ascRadioButton.isSelected())
                     {
-                        System.out.println("Data will be asc.");
+                        //System.out.println("Data will be asc.");
                         descOrderSelected = false;
                    }
                     else
                     {
-                        System.out.println("Data will be desc.");
+                        //System.out.println("Data will be desc.");
                         descOrderSelected = true;
                     }
                 }
             }
         });
 
-        //Δημιουργία αντικειμένου JSON
-        json = new JSON();
+
    }
 
     public void okClicked(ActionEvent event)
     {
-
-        int typeError;
+        //int typeError;
         String urlString = "https://www.quandl.com/api/v3/datasets/";
+        final String taskString;
         Map<String,String> dataItem = new HashMap<>();
+        dataLoadingLabel.setVisible(true);
+        progressIndicator.setVisible(true);
         //Όταν πατηθεί πάλι το κουμπί OK άδειασε τις μεταβλητές
         //για να μπουν τα νέα δεδομένα
         if(okButtonCounter>0)
@@ -312,41 +326,94 @@ public class Controller
             urlString += ".json?order=asc&api_key=mZVZ31PNXAaaDB24BUeV";
 
         }
-
-        typeError=json.getQuandlData(urlString);
-        //Εμφάνισε το κατάλληλο μήνυμα σε περίπτωση που υπάρξει κάποιο πρόβλημα
-        if( (typeError==-2) || (typeError==-1) ||(typeError==0) )
-        {
-            Popup popup = new Popup();
-            switch (typeError)
+        taskString= urlString;
+        task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception
             {
-                case -2:popup.display(-2);
-                break;
-                case -1:popup.display(-1);
-                break;
-                case 0:popup.display(0);
-                break;
+                int typeError=json.getQuandlData(taskString);
+
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        dataLoadingLabel.setVisible(false);
+                        progressIndicator.setVisible(false);
+                        if( (typeError==-2) || (typeError==-1) ||(typeError==0) )
+                        {
+                            Popup popup = new Popup();
+                            switch (typeError)
+                            {
+                                case -2:popup.display(-2);
+                                    break;
+                                case -1:popup.display(-1);
+                                    break;
+                                case 0:popup.display(0);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            metadataList = json.getMetadataList();
+                            dataItem.put("name",metadataList.get(0));
+                            dataItem.put("description",metadataList.get(1));
+                            dataItem.put("lastUpdate",metadataList.get(2));
+                            dataItem.put("latestDate",metadataList.get(3));
+                            dataItem.put("olderDate",metadataList.get(4));
+                            dataItem.put("tableValues",metadataList.get(5));
+                            dataItem.put("frequency",metadataList.get(6));
+                            dataItem.put("type",metadataList.get(7));
+
+                            dataItems.add(dataItem);
+
+                            tableView.getItems().setAll(dataItems);
+                            descriptionCol.setCellFactory(WRAPPING_CELL_FACTORY);
+                            nextButton.setVisible(true);
+                        }
+                        okButtonCounter++;
+
+                    }
+                });
+                return null;
             }
-        }
-        else
-        {
-            metadataList = json.getMetadataList();
-            dataItem.put("name",metadataList.get(0));
-            dataItem.put("description",metadataList.get(1));
-            dataItem.put("lastUpdate",metadataList.get(2));
-            dataItem.put("latestDate",metadataList.get(3));
-            dataItem.put("olderDate",metadataList.get(4));
-            dataItem.put("tableValues",metadataList.get(5));
-            dataItem.put("frequency",metadataList.get(6));
-            dataItem.put("type",metadataList.get(7));
-
-            dataItems.add(dataItem);
-
-            tableView.getItems().addAll(dataItems);
-            descriptionCol.setCellFactory(WRAPPING_CELL_FACTORY);
-            nextButton.setVisible(true);
-        }
-        okButtonCounter++;
+        };
+        new Thread(task).start();
+        //System.out.println("Controller class Url_String:"+urlString);
+//        typeError=json.getQuandlData(urlString);
+        //Εμφάνισε το κατάλληλο μήνυμα σε περίπτωση που υπάρξει κάποιο πρόβλημα
+//        if( (typeError==-2) || (typeError==-1) ||(typeError==0) )
+//        {
+//            Popup popup = new Popup();
+//            switch (typeError)
+//            {
+//                case -2:popup.display(-2);
+//                break;
+//                case -1:popup.display(-1);
+//                break;
+//                case 0:popup.display(0);
+//                break;
+//            }
+//        }
+//        else
+//        {
+//            metadataList = json.getMetadataList();
+//            dataItem.put("name",metadataList.get(0));
+//            dataItem.put("description",metadataList.get(1));
+//            dataItem.put("lastUpdate",metadataList.get(2));
+//            dataItem.put("latestDate",metadataList.get(3));
+//            dataItem.put("olderDate",metadataList.get(4));
+//            dataItem.put("tableValues",metadataList.get(5));
+//            dataItem.put("frequency",metadataList.get(6));
+//            dataItem.put("type",metadataList.get(7));
+//
+//            dataItems.add(dataItem);
+//
+//            tableView.getItems().addAll(dataItems);
+//            descriptionCol.setCellFactory(WRAPPING_CELL_FACTORY);
+//            nextButton.setVisible(true);
+//        }
+//        okButtonCounter++;
     }
     public void onBuckButton(ActionEvent event)
     {
@@ -373,7 +440,13 @@ public class Controller
     public void nextClicked(ActionEvent event)
     {
         Map <String,Double> tableData = JSON.getJsonTableData();
+//        System.out.println("Printing tableData for processing");
+//        for (String key : tableData.keySet())
+//        {
+//            System.out.println(key);
+//        }
         String dataName = JSON.getDataName();
+        //System.out.println("Datas name for processing:"+dataName);
         try
         {
             FXMLLoader loader = new FXMLLoader();

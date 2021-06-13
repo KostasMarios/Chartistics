@@ -56,15 +56,15 @@ public class StartPageController
     @FXML
     private Label dataLoadingLabel;
 
-    private Task<ObservableList<String>> task;
+    private Task<Void> task;
 
     public void DataBaseButtonClicked(ActionEvent event)
     {
         progressIndicator.setVisible(true);
         dataLoadingLabel.setVisible(true);
-        task = new Task<ObservableList<String>>() {
+        task = new Task<Void>() {
             @Override
-            protected ObservableList<String> call() throws Exception
+            protected Void call() throws Exception
             {
                 ObservableList<String> listView = FXCollections.observableArrayList();
                 listView.setAll(DataQuery.getDataName());
@@ -92,7 +92,7 @@ public class StartPageController
                         }
                     }
                 });
-                return listView;
+                return null;
             }
         };
         new Thread(task).start();
