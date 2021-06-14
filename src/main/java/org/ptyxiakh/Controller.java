@@ -41,105 +41,73 @@ public class Controller
     //Με αυτό τον χάρτη αντιστοιχείτε ο κωδικός του TitledPane με το
     //id της κατηγορίας π.χ. bp_TitledPane -> BP
     private Map<String,String> dataCategoryMap;
-
     private ObservableList<Map<String, String>> dataItems = FXCollections.<Map<String, String>>observableArrayList();
-
-    //private String diagramUrl="";
-
     @FXML
     private TitledPane bp_TitledPane;
-
     @FXML
     private TitledPane uniDevOrg_TitledPane;
-
     @FXML
     private TitledPane wwDevInd_TitledPane;
-
     @FXML
     private ComboBox bp_ComboBox;
     ObservableList<String>bpData;
     private Map<String,String> mapBpData;
-
     @FXML
     private ComboBox uniDevOrg_ComboBox;
     ObservableList<String>uniDevOrgData;
     private Map<String,String> mapUniDevOrgData;
-
     @FXML
     private ComboBox wwDevInd_ComboBox;
     ObservableList<String>wwDevIndData;
     Map<String,String> mapWwDevIndData;
-
     @FXML
     private ComboBox countries_ComboBox;
     private ObservableList<String> countriesData=FXCollections.observableArrayList();
     private Map<String,String> mapXwres = new TreeMap<>();
     private Map<String,String> mapHelper ;
-
     @FXML
     private ToggleGroup orderToggleGroup;
-
     @FXML
     private RadioButton  ascRadioButton;
-
     @FXML
     private RadioButton  descRadioButton;
-
     @FXML
     private Button okButton;
-
     @FXML
     private Button nextButton;
-
     @FXML
     private Button buckButton;
     @FXML
     private Accordion dataCategory_Accordion;
-
     @FXML
     private TableView tableView=new TableView();
-
     @FXML
     private TableColumn<Map,String> nameCol= new TableColumn<>("Όνομα");
-
     @FXML
     private TableColumn<Map,String> descriptionCol = new TableColumn<>("Περιγραφή");
-
     @FXML
     private TableColumn<Map,String> lastUpdateCol = new TableColumn<>("Τελευταία ενημέρωση");
-
     @FXML
     private TableColumn<Map,String> latestDateCol = new TableColumn<>("Νεότερη ημ/νία");
-
     @FXML
     private TableColumn<Map,String> olderDateCol = new TableColumn<>("Παλαιότερη ημ/νία");
-
     @FXML
     private TableColumn<Map,String> datasTableCol = new TableColumn<>("Ονόματα στηλών");
-
     @FXML
     private TableColumn<Map,String> frequencyCol = new TableColumn<>("Συχνότητα");
-
     @FXML
     private TableColumn<Map,String> typeCol = new TableColumn<>("Τύπος");
-
     @FXML
     private HBox firstInvisibleHbox;
-
     @FXML
     private HBox secondInvisibleHbox;
-
     @FXML
     private HBox dataLoadingHbox;
-
     @FXML
     private Label dataLoadingLabel;
-
     @FXML
     private ProgressIndicator  progressIndicator;
-
     private Task<Void> task;
-
     //Βάζουμε true επειδή η φθίνουσα είναι τιμή προεπιλογής
     private boolean descOrderSelected = true;
 
@@ -157,8 +125,8 @@ public class Controller
             mapXwres.put(xwres.getKey(), xwres.getValue());
         }
         readFiles.clearMap();
-        dataCategoryMap = new HashMap<>();
 
+        dataCategoryMap = new HashMap<>();
         dataCategoryMap.put("bp_TitledPane","BP");
         dataCategoryMap.put("uniDevOrg_TitledPane","UIST");
         dataCategoryMap.put("wwDevInd_TitledPane","WWDI");
@@ -225,7 +193,6 @@ public class Controller
                 "Διεθνής τουρισμός(αριθμός αφίξεων)"
         );
 
-       
         bp_ComboBox.setItems(bpData);
         bp_ComboBox.getSelectionModel().selectFirst();
         uniDevOrg_ComboBox.setItems(uniDevOrgData);
@@ -257,24 +224,21 @@ public class Controller
                 {
                     if(ascRadioButton.isSelected())
                     {
-                        //System.out.println("Data will be asc.");
                         descOrderSelected = false;
-                   }
+                    }
                     else
                     {
-                        //System.out.println("Data will be desc.");
                         descOrderSelected = true;
                     }
                 }
             }
         });
-
-
    }
 
+    //Η μέθοδος αυτή συλλέγει τα δεδομένα από το quandl με βάση
+    //την προτήμηση του χρήστη
     public void okClicked(ActionEvent event)
     {
-        //int typeError;
         String urlString = "https://www.quandl.com/api/v3/datasets/";
         final String taskString;
         Map<String,String> dataItem = new HashMap<>();
@@ -287,9 +251,7 @@ public class Controller
             dataItems.clear();
             metadataList.clear();
             tableView.getItems().clear();
-           //diagramUrl="";
-        }
-
+       }
         switch (dataCategory_Accordion.getExpandedPane().getId())
         {
             case "bp_TitledPane":
@@ -317,14 +279,11 @@ public class Controller
 
         if(descOrderSelected)
         {
-            //System.out.println("descDataOrder button is selected.");
             urlString += ".json?order=desc&api_key=mZVZ31PNXAaaDB24BUeV";
         }
         else
         {
-            //System.out.println("ascDataOrder button is selected.");
             urlString += ".json?order=asc&api_key=mZVZ31PNXAaaDB24BUeV";
-
         }
         taskString= urlString;
         task = new Task<Void>() {
@@ -332,7 +291,7 @@ public class Controller
             protected Void call() throws Exception
             {
                 int typeError=json.getQuandlData(taskString);
-
+                //Οι εντολές αυτές εκτελούνται στο JavaFx thread
                 Platform.runLater(new Runnable()
                 {
                     @Override
@@ -379,42 +338,9 @@ public class Controller
             }
         };
         new Thread(task).start();
-        //System.out.println("Controller class Url_String:"+urlString);
-//        typeError=json.getQuandlData(urlString);
-        //Εμφάνισε το κατάλληλο μήνυμα σε περίπτωση που υπάρξει κάποιο πρόβλημα
-//        if( (typeError==-2) || (typeError==-1) ||(typeError==0) )
-//        {
-//            Popup popup = new Popup();
-//            switch (typeError)
-//            {
-//                case -2:popup.display(-2);
-//                break;
-//                case -1:popup.display(-1);
-//                break;
-//                case 0:popup.display(0);
-//                break;
-//            }
-//        }
-//        else
-//        {
-//            metadataList = json.getMetadataList();
-//            dataItem.put("name",metadataList.get(0));
-//            dataItem.put("description",metadataList.get(1));
-//            dataItem.put("lastUpdate",metadataList.get(2));
-//            dataItem.put("latestDate",metadataList.get(3));
-//            dataItem.put("olderDate",metadataList.get(4));
-//            dataItem.put("tableValues",metadataList.get(5));
-//            dataItem.put("frequency",metadataList.get(6));
-//            dataItem.put("type",metadataList.get(7));
-//
-//            dataItems.add(dataItem);
-//
-//            tableView.getItems().addAll(dataItems);
-//            descriptionCol.setCellFactory(WRAPPING_CELL_FACTORY);
-//            nextButton.setVisible(true);
-//        }
-//        okButtonCounter++;
     }
+
+    //Επέστρεψε στην προηγούμενη οθόνη
     public void onBuckButton(ActionEvent event)
     {
         try
@@ -433,6 +359,7 @@ public class Controller
             ex.printStackTrace();
         }
     }
+
     /**
      * Όταν κληθεί αυτή η μέθοδος,τα δεδομένα που επιλέξαμε
      * θα εμφανιστούν στο παράθυρο επεξεργασίας
@@ -440,14 +367,8 @@ public class Controller
     public void nextClicked(ActionEvent event)
     {
         Map <String,Double> tableData = JSON.getJsonTableData();
-//        System.out.println("Printing tableData for processing");
-//        for (String key : tableData.keySet())
-//        {
-//            System.out.println(key);
-//        }
         String dataName = JSON.getDataName();
-        //System.out.println("Datas name for processing:"+dataName);
-        try
+       try
         {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("dataProcessing.fxml"));
@@ -470,6 +391,8 @@ public class Controller
             ex.printStackTrace();
         }
     }
+
+    //Μέθοδος εμφάνισης των δεδομένων στα κελιά του Table View
     public static final Callback<TableColumn<Map,String>, TableCell<Map,String>> WRAPPING_CELL_FACTORY =
             new Callback<TableColumn<Map,String>, TableCell<Map,String>>()
             {
@@ -501,5 +424,4 @@ public class Controller
                     return tableCell;
                 }
             };
-
 }

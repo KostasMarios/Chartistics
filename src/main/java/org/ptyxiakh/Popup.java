@@ -8,6 +8,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * H κλάση Popup εμφανίζει ένα παράθυρο σφάλματος
+ * με το κατάλληλο μήνυμα λάθους
+ */
 public class Popup
 {
     Stage popupWindow;

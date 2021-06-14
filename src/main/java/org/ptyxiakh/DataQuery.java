@@ -33,20 +33,16 @@ public  class DataQuery
         List<Data> list = query.getResultList();
         for (Data data: list)
         {
-//                System.out.println("Data name:"+ data.getName());
             if(data.getName().equals(dataName))
             {
                 dataName=data.getName();
                 List<Measurements> listMeasurements = data.getMeasurementsList();
                 for (Measurements measurements : listMeasurements)
-//                        System.out.println("Date:" + measurements.getDate() + "Value:" + measurements.getValue());
                     dataMap.put(measurements.getDate(),measurements.getValue());
             }
         }
         em.close();
         emf.close();
-
         return (LinkedHashMap<String, Double>) dataMap;
     }
-
 }

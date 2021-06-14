@@ -9,7 +9,7 @@ public class Data
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
-    //Bάζω @Column(unique = true) για αποφυγή ίδιων τιμών στην ΒΔ
+    //Bάζω @Column(unique = true) για αποφυγή ίδιων τιμών στην βάση δεδομένων
     @Column(unique = true)
     private String name;
 

@@ -24,9 +24,6 @@ public class ReadFiles
 
     public void readFileData(String textFile)
     {
-//        try
-//        {
-            //scanner = new Scanner( new FileReader(textFile));
             InputStream inputStream = this.getFileFromResourceAsStream(textFile);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream,StandardCharsets.UTF_8);
             scanner = new Scanner( new BufferedReader(inputStreamReader));
@@ -36,18 +33,8 @@ public class ReadFiles
                 String value = scanner.next();
                 scanner.skip(scanner.delimiter());
                 String valueId = scanner.nextLine();
-//                System.out.println("country:"+country+" countryId:"+countryId);
                 fileData.put(value,valueId);
             }
-//        }
-//        catch (UnsupportedEncodingException e)
-//        {
-//            System.out.println("Unsupported Encoding Exception");
-//        }
-//        catch (FileNotFoundException ex)
-//        {
-//            System.out.println("WHERE IS THAT FILE??");
-//        }
     }
 
     public Map<String, String> getFileData()
@@ -63,11 +50,10 @@ public class ReadFiles
     // Παίρνουμε το αρχείο από τον φάκελο με τους πόρους
     public InputStream getFileFromResourceAsStream(String fileName)
     {
-        // The class loader that loaded the class
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
 
-        // the stream holding the file content
+        // Αν δεν βρεθεί το αρχείο εμφάνισε κατάλληλο μήνυμα
         if (inputStream == null)
         {
             throw new IllegalArgumentException("file not found! " + fileName);

@@ -1,5 +1,4 @@
 package org.ptyxiakh;
-
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -20,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -34,152 +32,94 @@ public class DataProcessingController implements Initializable
     //Κουμπί επιστροφής στην προηγούμενη οθόνη
     @FXML
     private Button buckButton;
-
     @FXML
     private Button saveButton;
-
     @FXML
     private RadioButton lineChartButton;
-
     @FXML
     private RadioButton pieChartButton;
-
     @FXML
     private ToggleGroup diagramType;
-
     @FXML
     private TableView<Map.Entry<String,Double>> dataTable = new TableView<>();
-
     @FXML
     private  TableColumn<Map.Entry<String, Double>, String> dateColumn = new TableColumn<>("Ημ/νία");
-
     @FXML
     private TableColumn<Map.Entry<String, Double>, Double> measurementsColumn = new TableColumn<>("Μετρήσεις");
-
     @FXML
     private AnchorPane chartsContainer;
-
     @FXML
     private Label messageLabel;
-
     @FXML
     private CategoryAxis xAxis;
-
     @FXML
     private NumberAxis yAxis;
-
     @FXML
     private  LineChart<String,Number> lineChart;
-
     @FXML
     private PieChart pieChart;
-
     @FXML
     private Label dataNameLabel;
-//    @FXML
-//    private Label lagNegativeLabel;
     //Κουμπί για έναρξη της διαδικασίας ελέγχου
     //της στατικότητας των δεδομένων με τον
     //αλγόριμθο Augmented Dickey Fuller
     @FXML
     private Button augmentedDickeyFullerButton;
-
     @FXML
     private Button differencingButton;
-    
-//    @FXML
-//    private TextField lagTextField;
-
-//    @FXML
-//    private Label lagWarningLabel;
-
     @FXML
     private Label stationarityLabel;
-
     @FXML
     private Label firstStepLabel;
-
-//    @FXML
-//    private Label lagTextLabel;
-
     @FXML
     private Label nextStepLabel;
-
     @FXML
     private Label thirdStepLabel;
-
     @FXML
     private Label qParameterLabel;
-
     @FXML
     private Label qParameterText;
-
     @FXML
     private Label differencingValueLabel;
-
     @FXML
     private TextArea differenceHelperText;
-
     @FXML
     private TextField differenceTextField;
-
     @FXML
     private  TextField qParameterTextField;
-
     @FXML
     private Label fourthStepLabel;
-
     @FXML
     private Button acfPlotButton;
-
     @FXML
     private Button pacfPlotButton;
-
     @FXML
     private Label pParameterLabel;
-
     @FXML
     private TextField pParameterTextField;
-
     @FXML
     private Label pParameterText;
-
     @FXML
     private Label arimaStepLabel;
-
     @FXML
     private Button arimaButton;
-
     @FXML
     private Label arimaLabel;
-
     @FXML
     private Label forecastSizeLabel;
-
     @FXML
     private TextField forecastSizeTextField;
-
     @FXML
     private Label isStationaryLabel;
-
     private static String dataName;
-
     private Collection<Double> DoublesCollection;
-
     private Double[] DoublesArray;
-
     private List<Double> listDoubles;
-
     private double[] doublePrimitiveArray;
-
     private  Map<String,Double> tableData;
-
     private String firstMapDate;
-
     private int lagValue;
-
     private boolean netSource;
-
     //Δήλωση παραμέτρων Arima
     int d,q,p;
 
@@ -192,22 +132,11 @@ public class DataProcessingController implements Initializable
         netSource=false;
         qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι\nπάνω από το θετικό όριο.");
         qParameterText.setVisible(false);
-//        dataName = JSON.getDataName();
-//        dataNameLabel.setText(dataName);
-//        //Πάρε τα δεομένα του πίνακα από το JSON
-//         tableData = JSON.getJsonTableData();
-
-
        firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
-
 //       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
     }
-
-    public boolean isNetSource()
-    {
-        return netSource;
-    }
-
+    //Η μέθοδος αυτή χρησιμοποιείτε για να εντοπιστεί
+   //εάν η χρήση τις κλάσης γίνεται με δεδομένα της βάσης δεδομένων ή του διαδικτύου
     public void setNetSource(boolean netSource) {
         this.netSource = netSource;
     }
@@ -215,13 +144,7 @@ public class DataProcessingController implements Initializable
     public void processData(Map<String,Double> tableDataParam, String dataName)
     {
             tableData=tableDataParam;
-//        if (source.equals("internet"))
-//        {
-            //dataName = JSON.getDataName();
             dataNameLabel.setText(dataName);
-            //Πάρε τα δεομένα του πίνακα από το JSON
-//            tableData = JSON.getJsonTableData();
-//        }
 
         //Συμπλήρωσε με μεμονωμένες τιμές την στήλη ημ/νία
         dateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, String>, ObservableValue<String>>()
@@ -234,7 +157,6 @@ public class DataProcessingController implements Initializable
                 return new SimpleStringProperty(p.getValue().getKey());
             }
         });
-
         measurementsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, Double>, ObservableValue<Double>>()
         {
             @Override
@@ -244,9 +166,9 @@ public class DataProcessingController implements Initializable
                 return new SimpleObjectProperty(p.getValue().getValue());
             }
         });
+
         //Δημιουργία ObservableArrayList με τα δεδομένα του Map
         ObservableList<Map.Entry<String, Double>> items = FXCollections.observableArrayList(tableDataParam.entrySet());
-
         //Βάλε τα δεδομένα του ObservableList στο TableView
         dataTable.getItems().addAll(items);
 
@@ -262,10 +184,8 @@ public class DataProcessingController implements Initializable
                     if(lineChartButton.isSelected())
                     {
                         pieChart.setVisible(false);
-                        System.out.println("Line chart is selected.");
                         XYChart.Series<String,Number> seriesLineChart = new XYChart.Series<>();
                         messageLabel.setVisible(false);
-                        //FXMLLoader lineChartLoader = new FXMLLoader(getClass().getResource("lineChart.fxml"));
                         lineChart.setVisible(true);
                         lineChart.setTitle(dataName);
                         for(Map.Entry<String,Double> mapEntry : tableDataParam.entrySet())
@@ -278,7 +198,6 @@ public class DataProcessingController implements Initializable
                     else
                     {
                         lineChart.setVisible(false);
-                        System.out.println("Pie chart is selected.");
                         messageLabel.setVisible(false);
                         pieChart.setVisible(true);
                         pieChart.setTitle(dataName);
@@ -377,7 +296,6 @@ public class DataProcessingController implements Initializable
             //Διαδικασία επεξεργασίας των δεδομένων όταν αυτά δεν είναι σταθερά
             if(stationaryCounter==0)
             {
-                System.out.println("The data are not stationary");
                 //Στο Label είναι δυνατή η αλλαγή γραμμής με την χρήση \n
                 stationarityLabel.setText("Τα δεδομένα δεν είναι σταθερά.\nΘα γίνει η κατάλληλη μετρατροπή στο 2ο βήμα.");
                 stationarityLabel.setVisible(true);
@@ -390,7 +308,6 @@ public class DataProcessingController implements Initializable
             }
             else
             {
-                System.out.println("The data are stationary");
                 stationarityLabel.setText("Τα δεδομένα είναι σταθερά,οπότε d=0.\nΤο 2ο βήμα θα παραληφθεί.");
                 stationarityLabel.setVisible(true);
                 thirdStepLabel.setText("3)ΔΙΑΓΡΑΜΜΑ ΑΥΤΟΣΥΣΧΕΤΙΣΗΣ ΚΑΙ ΕΙΣΑΓΩΓΗ ΤΙΜΗΣ AM(q)");
@@ -406,7 +323,8 @@ public class DataProcessingController implements Initializable
                 pParameterLabel.setVisible(true);
                 pParameterText.setVisible(true);
 
-                pacfPlotButton.setOnAction(new EventHandler<ActionEvent>() {
+                pacfPlotButton.setOnAction(new EventHandler<ActionEvent>()
+                {
                     @Override
                     public void handle(ActionEvent event)
                     {
@@ -418,9 +336,7 @@ public class DataProcessingController implements Initializable
                     }
                 });
             }
-        }
-
-//    }
+    }
 
     //Διαδικασία υλοποίησης της μεθόδου διαφοράς,εμφάνιση διαγράμματος αυτοσυσχέτισης
     //και έλεγχος σταθερότητας
@@ -545,18 +461,4 @@ public class DataProcessingController implements Initializable
         }
 
     }
-//    public void startPacfPlot(ActionEvent event,double[] data,int lag)
-//    {
-//        Plots.plotPacf(data,lag);
-//        arimaStepLabel.setVisible(true);
-//    }
-
-//    public void diagramSelected()
-//    {
-//        if(diagramType.getSelectedToggle().equals(lineChartButton))
-//            System.out.println("Line chart is selected.");
-//
-//        if(this.diagramType.getSelectedToggle().equals(pieChartButton))
-//            System.out.println("Pie chart is selected");
-//    }
 }

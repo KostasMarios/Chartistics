@@ -26,8 +26,6 @@ public class JpaUtil
         {
             measurement = new Measurements(k,v.doubleValue());
             data.getMeasurementsList().add(measurement);
-//            entityManager.persist(measurement);
-//            measurementsList.add(measurement);
         });
         entityManager.persist(data);
         //Σε περίπτωση που παρουσιαστεί PersistenceException

@@ -95,28 +95,6 @@ public final class TimeSeries implements DataSet {
         this.timeToIntegerMap = Collections.unmodifiableMap(timeToIntegerMap);
     }
 
-//    private TimeSeries(final TimePeriod timePeriod, final Time startTime, final double... series) {
-//        this.dataSet = new DoubleDataSet(series);
-//        this.series = series.clone();
-//        this.n = series.length;
-//        this.mean = this.dataSet.mean();
-//        this.timePeriod = timePeriod;
-//
-//        List<Time> times = new ArrayList<>(series.length);
-//        Map<Time, Integer> timeIntegerMap = new HashMap<>(series.length);
-//        times.add(startTime);
-//        timeIntegerMap.put(startTime, 0);
-//
-//        Time time;
-//        for (int i = 1; i < series.length; i++) {
-//            time = times.get(i - 1).plus(timePeriod);
-//            times.add(time);
-//            timeIntegerMap.put(time, i);
-//        }
-//        this.observationTimes = Collections.unmodifiableList(times);
-//        this.timeToIntegerMap = Collections.unmodifiableMap(timeIntegerMap);
-//    }
-
     private TimeSeries(final TimePeriod timePeriod, final Time startTime, final double[] series) {
         this.dataSet = new DoubleDataSet(series);
         this.series = series;
