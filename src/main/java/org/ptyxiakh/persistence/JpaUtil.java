@@ -1,4 +1,6 @@
-package org.ptyxiakh;
+package org.ptyxiakh.persistence;
+import org.ptyxiakh.Popup;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

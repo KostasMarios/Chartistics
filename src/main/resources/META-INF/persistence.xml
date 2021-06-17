@@ -6,8 +6,8 @@
     <persistence-unit name="CHARTISTICS" transaction-type="RESOURCE_LOCAL">
         <description> Hibernate JPA Configuration </description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>org.ptyxiakh.Data</class>
-        <class>org.ptyxiakh.Measurements</class>
+        <class>org.ptyxiakh.persistence.Data</class>
+        <class>org.ptyxiakh.persistence.Measurements</class>
         <properties>
             <property name="javax.persistence.jdbc.driver"
                       value="com.mysql.cj.jdbc.Driver" />

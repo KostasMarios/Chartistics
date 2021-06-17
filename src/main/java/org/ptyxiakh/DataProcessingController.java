@@ -19,6 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.commons.lang3.ArrayUtils;
+import org.ptyxiakh.persistence.JpaUtil;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;

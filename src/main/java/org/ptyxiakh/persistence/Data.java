@@ -1,4 +1,5 @@
-package org.ptyxiakh;
+package org.ptyxiakh.persistence;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Data
     @Column(unique = true)
     private String name;
 
-   @OneToMany( targetEntity=Measurements.class,cascade = CascadeType.ALL,
+   @OneToMany( targetEntity= Measurements.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true )
     private List<Measurements> measurementsList = new ArrayList<>();
 

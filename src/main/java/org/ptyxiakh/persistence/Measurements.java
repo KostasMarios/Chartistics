@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.persistence;
 
 import javax.persistence.*;
 
