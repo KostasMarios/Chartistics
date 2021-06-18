@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.domain;
 import javax.json.*;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;

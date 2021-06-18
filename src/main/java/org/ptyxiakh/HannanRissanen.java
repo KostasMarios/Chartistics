@@ -7,6 +7,7 @@
 
 package org.ptyxiakh;
 
+import org.ptyxiakh.domain.ArimaParams;
 import org.ptyxiakh.matrix.InsightsMatrix;
 import org.ptyxiakh.matrix.InsightsVector;
 import org.ptyxiakh.timeseriesutil.ForecastUtil;

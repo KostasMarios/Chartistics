@@ -7,6 +7,9 @@
 
 package org.ptyxiakh;
 
+import org.ptyxiakh.domain.ArimaModel;
+import org.ptyxiakh.domain.ArimaParams;
+import org.ptyxiakh.domain.ForecastResult;
 import org.ptyxiakh.timeseriesutil.ForecastUtil;
 import org.ptyxiakh.timeseriesutil.Integrator;
 
@@ -27,7 +30,7 @@ public final class ArimaSolver {
      * @return forecast ARMA data point
      */
     public static double[] forecastARMA(final ArimaParams params, final double[] dataStationary,
-        final int startIndex, final int endIndex) {
+                                        final int startIndex, final int endIndex) {
 
         final int train_len = startIndex;
         final int total_len = endIndex;
@@ -70,7 +73,7 @@ public final class ArimaSolver {
      * @return forecast result
      */
     public static ForecastResult forecastARIMA(final ArimaParams params, final double[] data,
-        final int forecastStartIndex, final int forecastEndIndex) {
+                                               final int forecastStartIndex, final int forecastEndIndex) {
 
         if (!checkARIMADataLength(params, data, forecastStartIndex, forecastEndIndex)) {
             final int initialConditionSize = params.d + params.D * params.m;
@@ -140,7 +143,7 @@ public final class ArimaSolver {
      * @return fitted ARIMA model
      */
     public static ArimaModel estimateARIMA(final ArimaParams params, final double[] data,
-        final int forecastStartIndex, final int forecastEndIndex) {
+                                           final int forecastStartIndex, final int forecastEndIndex) {
 
         if (!checkARIMADataLength(params, data, forecastStartIndex, forecastEndIndex)) {
             final int initialConditionSize = params.d + params.D * params.m;
