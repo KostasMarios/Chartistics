@@ -5,11 +5,7 @@
  * This source code is licensed under the MIT license found in the LICENSE file in the root repository.
  */
 
-package org.ptyxiakh;
-
-import org.ptyxiakh.matrix.InsightsMatrix;
-import org.ptyxiakh.matrix.InsightsVector;
-import org.ptyxiakh.timeseriesutil.ForecastUtil;
+package org.ptyxiakh.businessInfrastructure;
 
 import java.util.Arrays;
 

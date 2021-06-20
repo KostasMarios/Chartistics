@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 /*
  * Copyright (c) 2016 Jacob Rachiele
@@ -23,8 +23,6 @@ package org.ptyxiakh;
  *
  * Jacob Rachiele
  */
-
-import org.ptyxiakh.lombok.NonNull;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

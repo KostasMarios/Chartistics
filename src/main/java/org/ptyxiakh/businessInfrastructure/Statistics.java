@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 /*
  * Copyright (c) 2016-2017 Jacob Rachiele
  *
@@ -24,7 +24,7 @@ package org.ptyxiakh;
  */
 import java.util.Arrays;
 
-import static org.ptyxiakh.Operators.productOf;
+import static org.ptyxiakh.businessInfrastructure.Operators.productOf;
 
 /**
  * Static methods for computing basic statistics.

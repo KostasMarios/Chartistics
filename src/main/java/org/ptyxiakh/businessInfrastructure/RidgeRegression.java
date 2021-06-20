@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;

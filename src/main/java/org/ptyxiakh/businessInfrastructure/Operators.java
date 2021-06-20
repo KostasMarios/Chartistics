@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 /*
  * Copyright (c) 2016 Jacob Rachiele

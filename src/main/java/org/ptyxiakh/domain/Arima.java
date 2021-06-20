@@ -7,8 +7,8 @@
 
 package org.ptyxiakh.domain;
 
-import org.ptyxiakh.ArimaSolver;
-import org.ptyxiakh.timeseriesutil.ForecastUtil;
+import org.ptyxiakh.businessInfrastructure.ArimaSolver;
+import org.ptyxiakh.businessInfrastructure.ForecastUtil;
 
 /**
  * ARIMA implementation

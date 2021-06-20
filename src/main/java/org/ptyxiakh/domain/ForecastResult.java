@@ -7,7 +7,7 @@
 
 package org.ptyxiakh.domain;
 
-import org.ptyxiakh.ArimaSolver;
+import org.ptyxiakh.businessInfrastructure.ArimaSolver;
 
 /**
  * ARIMA Forecast Result

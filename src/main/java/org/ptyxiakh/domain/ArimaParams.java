@@ -7,9 +7,9 @@
 
 package org.ptyxiakh.domain;
 
-import org.ptyxiakh.BackShift;
-import org.ptyxiakh.matrix.InsightsVector;
-import org.ptyxiakh.timeseriesutil.Integrator;
+import org.ptyxiakh.businessInfrastructure.BackShift;
+import org.ptyxiakh.businessInfrastructure.InsightsVector;
+import org.ptyxiakh.businessInfrastructure.Integrator;
 
 /**
  * Simple wrapper for ARIMA parameters and fitted states

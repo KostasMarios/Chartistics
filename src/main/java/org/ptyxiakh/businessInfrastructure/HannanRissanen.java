@@ -5,12 +5,9 @@
  * This source code is licensed under the MIT license found in the LICENSE file in the root repository.
  */
 
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 import org.ptyxiakh.domain.ArimaParams;
-import org.ptyxiakh.matrix.InsightsMatrix;
-import org.ptyxiakh.matrix.InsightsVector;
-import org.ptyxiakh.timeseriesutil.ForecastUtil;
 
 /**
  * Hannan-Rissanen algorithm for estimating ARMA parameters

@@ -5,9 +5,9 @@
  * This source code is licensed under the MIT license found in the LICENSE file in the root repository.
  */
 
-package org.ptyxiakh.timeseriesutil;
+package org.ptyxiakh.businessInfrastructure;
 
-import org.ptyxiakh.matrix.InsightsMatrix;
+import org.ptyxiakh.businessInfrastructure.InsightsMatrix;
 
 /**
  * Time series forecasting Utilities

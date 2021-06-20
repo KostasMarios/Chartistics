@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

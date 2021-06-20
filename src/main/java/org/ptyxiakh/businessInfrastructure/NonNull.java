@@ -1,4 +1,4 @@
-package org.ptyxiakh.lombok;
+package org.ptyxiakh.businessInfrastructure;
 
 /*
  * Copyright (C) 2009-2019 The Project Lombok Authors.

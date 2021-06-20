@@ -5,13 +5,11 @@
  * This source code is licensed under the MIT license found in the LICENSE file in the root repository.
  */
 
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 import org.ptyxiakh.domain.ArimaModel;
 import org.ptyxiakh.domain.ArimaParams;
 import org.ptyxiakh.domain.ForecastResult;
-import org.ptyxiakh.timeseriesutil.ForecastUtil;
-import org.ptyxiakh.timeseriesutil.Integrator;
 
 public final class ArimaSolver {
 

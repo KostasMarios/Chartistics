@@ -1,6 +1,4 @@
-package org.ptyxiakh;
-
-import org.ptyxiakh.lombok.NonNull;
+package org.ptyxiakh.businessInfrastructure;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;

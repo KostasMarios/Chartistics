@@ -22,7 +22,7 @@
  * Jacob Rachiele
  */
 
-package org.ptyxiakh;
+package org.ptyxiakh.businessInfrastructure;
 
 import com.google.common.primitives.Doubles;
 import org.apache.commons.lang3.ArrayUtils;
@@ -42,7 +42,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.ptyxiakh.DoubleFunctions.round;
+import static org.ptyxiakh.businessInfrastructure.DoubleFunctions.round;
 
 /**
  * Static methods for producing plots.

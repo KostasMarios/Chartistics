@@ -1,5 +1,5 @@
 package org.ptyxiakh.persistence;
-import org.ptyxiakh.Popup;
+import org.ptyxiakh.businessInfrastructure.Popup;
 
 import javax.persistence.*;
 import java.util.ArrayList;
