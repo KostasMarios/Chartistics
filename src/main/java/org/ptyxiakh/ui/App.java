@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

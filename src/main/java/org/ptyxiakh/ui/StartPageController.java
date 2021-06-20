@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.ui;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

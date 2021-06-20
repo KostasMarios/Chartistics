@@ -1,4 +1,4 @@
-package org.ptyxiakh;
+package org.ptyxiakh.ui;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;

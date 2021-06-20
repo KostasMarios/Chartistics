@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="680.0" styleClass="bodybg" stylesheets="@../../background.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ptyxiakh.StartPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="680.0" styleClass="bodybg" stylesheets="@../../../background.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ptyxiakh.ui.StartPageController">
    <children>
       <Label contentDisplay="CENTER" layoutX="240.0" layoutY="27.0" text="Chartistics" textAlignment="CENTER" textFill="#1f12d7" textOverrun="CENTER_ELLIPSIS" underline="true" wrapText="true">
          <font>
@@ -31,7 +31,7 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../database.png" />
+                  <Image url="@../../../database.png" />
                </image>
             </ImageView>
          </graphic>
@@ -42,7 +42,7 @@
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../global.png" />
+                  <Image url="@../../../global.png" />
                </image>
             </ImageView>
          </graphic>

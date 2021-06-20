@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="873.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ptyxiakh.DataProcessingController">
+<AnchorPane prefHeight="720.0" prefWidth="873.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ptyxiakh.ui.DataProcessingController">
    <children>
       <SplitPane dividerPositions="0.9896670493685419" prefHeight="720.0" prefWidth="924.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-51.0" AnchorPane.topAnchor="0.0">
         <items>
