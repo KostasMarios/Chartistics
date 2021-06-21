@@ -8,6 +8,7 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -78,6 +79,16 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Label fx:id="savingDataLabel" text="Αποθήκευση δεδομένων..." visible="false">
+                           <HBox.margin>
+                              <Insets left="8.0" top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ProgressIndicator fx:id="savingDataIndicator" prefHeight="22.0" prefWidth="51.0" visible="false">
+                           <HBox.margin>
+                              <Insets left="1.0" />
+                           </HBox.margin>
+                        </ProgressIndicator>
                      </children>
                   </HBox>
                   <Label fx:id="dataNameLabel1" layoutX="136.0" layoutY="27.0" text="ΠΙΝΑΚΑΣ ΜΕΤΡΗΣΕΩΝ" wrapText="true">
@@ -288,7 +299,7 @@
             </AnchorPane>
           <AnchorPane fx:id="chartsContainer" focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="624.0" prefWidth="555.0">
                <children>
-                  <Label fx:id="messageLabel" layoutX="137.0" layoutY="308.0" text="ΔΕΝ ΕΧΕΤΕ ΕΠΙΛΕΞΕΙ ΔΙΑΓΡΑΜΜΑ" />
+                  <Label fx:id="messageLabel" layoutX="137.0" layoutY="308.0" text="ΔΕΝ ΕΧΕΤΕ ΕΠΙΛΕΞΕΙ ΔΙΑΓΡΑΜΜΑ" visible="false" />
                   <LineChart fx:id="lineChart" animated="false" layoutX="6.0" layoutY="84.0" legendVisible="false" prefHeight="485.0" prefWidth="744.0" visible="false">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" tickLabelGap="20.0" tickLabelRotation="90.0" fx:id="xAxis" />

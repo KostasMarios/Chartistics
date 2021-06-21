@@ -1,5 +1,5 @@
 package org.ptyxiakh.persistence;
-import org.ptyxiakh.businessInfrastructure.Popup;
+import org.ptyxiakh.ui.Popup;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,8 +14,9 @@ public class JpaUtil
     private static EntityManagerFactory emf;
     Measurements measurement;
     List <Measurements> measurementsList ;
-    public void create(String name, Map<String,Double> tableData)
+    public int create(String name, Map<String,Double> tableData)
     {
+        int savingProssecc;
         boolean successfulStorage = true;
         measurementsList = new ArrayList<>();
         emf = Persistence.createEntityManagerFactory("CHARTISTICS");
@@ -32,7 +33,7 @@ public class JpaUtil
         entityManager.persist(data);
         //Σε περίπτωση που παρουσιαστεί PersistenceException
        //εμφανίσε μήνυμα διπλοεγγραφής
-        Popup popup = new Popup();
+//        Popup popup = new Popup();
         try
         {
             entityManager.flush();
@@ -40,8 +41,9 @@ public class JpaUtil
         catch (PersistenceException ex)
         {
 
-            popup.sqlPopUp(1);
+//            popup.sqlPopUp(1);
             successfulStorage = false;
+//            savingProssecc= 1;
         }
 
         entityManager.getTransaction().commit();
@@ -49,7 +51,12 @@ public class JpaUtil
         emf.close();
         if(successfulStorage)
         {
-            popup.sqlPopUp(2);
+//            popup.sqlPopUp(2);
+            savingProssecc=2;
+
         }
+        else
+            savingProssecc =1;
+        return savingProssecc;
     }
 }

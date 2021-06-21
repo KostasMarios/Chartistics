@@ -1,10 +1,12 @@
 package org.ptyxiakh.ui;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -119,6 +121,10 @@ public class DataProcessingController implements Initializable
     private TextField forecastSizeTextField;
     @FXML
     private Label isStationaryLabel;
+    @FXML
+    private Label savingDataLabel;
+    @FXML
+    private ProgressIndicator savingDataIndicator;
     private static String dataName;
     private Collection<Double> DoublesCollection;
     private Double[] DoublesArray;
@@ -130,6 +136,8 @@ public class DataProcessingController implements Initializable
     private boolean netSource;
     //Δήλωση παραμέτρων Arima
     int d,q,p;
+    private Task<Void> task;
+    private boolean callFromDatabase = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -147,6 +155,11 @@ public class DataProcessingController implements Initializable
    //εάν η χρήση τις κλάσης γίνεται με δεδομένα της βάσης δεδομένων ή του διαδικτύου
     public void setNetSource(boolean netSource) {
         this.netSource = netSource;
+    }
+
+    public void setCallFromDatabase(boolean callFromDatabase)
+    {
+        this.callFromDatabase = callFromDatabase;
     }
 
     public void processData(Map<String,Double> tableDataParam, String dataName)
@@ -260,9 +273,33 @@ public class DataProcessingController implements Initializable
     //Mέθοδος αποθήκευσης των δεδομένων
     public void saveData(ActionEvent event)
     {
-        JpaUtil jpaUtil = new JpaUtil();
-        jpaUtil.create(dataNameLabel.getText(),tableData);
+        savingDataLabel.setVisible(true);
+        savingDataIndicator.setVisible(true);
+        task = new Task<Void>()
+        {
+            @Override
+            protected Void call() throws Exception
+            {
+                int savingProcess;
+                JpaUtil jpaUtil = new JpaUtil();
+                savingProcess = jpaUtil.create(dataNameLabel.getText(),tableData);
+//                System.out.println("Saving Process is:"+savingProcess);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        savingDataLabel.setVisible(false);
+                        savingDataIndicator.setVisible(false);
+                        Popup popup = new Popup();
+                        popup.sqlPopUp(savingProcess);
+                    }
+                });
+                return null;
+            }
+        };
+        new Thread(task).start();
     }
+
     public void startAugmentedDickeyFuller(ActionEvent event)
     {
         int stationaryCounter=0;

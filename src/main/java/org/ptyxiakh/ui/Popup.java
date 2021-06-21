@@ -1,4 +1,4 @@
-package org.ptyxiakh.businessInfrastructure;
+package org.ptyxiakh.ui;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
