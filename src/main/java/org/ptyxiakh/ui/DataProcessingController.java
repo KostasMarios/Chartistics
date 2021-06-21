@@ -150,6 +150,7 @@ public class DataProcessingController implements Initializable
         qParameterText.setVisible(false);
        firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
 //       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
+
     }
     //Η μέθοδος αυτή χρησιμοποιείτε για να εντοπιστεί
    //εάν η χρήση τις κλάσης γίνεται με δεδομένα της βάσης δεδομένων ή του διαδικτύου
@@ -164,6 +165,10 @@ public class DataProcessingController implements Initializable
 
     public void processData(Map<String,Double> tableDataParam, String dataName)
     {
+        if(callFromDatabase)
+        {
+            saveButton.setVisible(false);
+        }
             tableData=tableDataParam;
             dataNameLabel.setText(dataName);
 

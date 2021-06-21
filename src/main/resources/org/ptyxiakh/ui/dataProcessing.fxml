@@ -299,7 +299,7 @@
             </AnchorPane>
           <AnchorPane fx:id="chartsContainer" focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="624.0" prefWidth="555.0">
                <children>
-                  <Label fx:id="messageLabel" layoutX="137.0" layoutY="308.0" text="ΔΕΝ ΕΧΕΤΕ ΕΠΙΛΕΞΕΙ ΔΙΑΓΡΑΜΜΑ" visible="false" />
+                  <Label fx:id="messageLabel" layoutX="137.0" layoutY="308.0" text="ΔΕΝ ΕΧΕΤΕ ΕΠΙΛΕΞΕΙ ΔΙΑΓΡΑΜΜΑ" />
                   <LineChart fx:id="lineChart" animated="false" layoutX="6.0" layoutY="84.0" legendVisible="false" prefHeight="485.0" prefWidth="744.0" visible="false">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" tickLabelGap="20.0" tickLabelRotation="90.0" fx:id="xAxis" />

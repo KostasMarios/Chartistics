@@ -23,6 +23,7 @@ public class Popup
     public Popup()
     {
         this.popupWindow = new Stage();
+        this.popupWindow.setResizable(false);
         this.popupWindow.initModality(Modality.APPLICATION_MODAL);
         this.label = new Label();
         this.button = new Button("Close");

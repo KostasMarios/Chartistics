@@ -120,8 +120,8 @@ public class StartPageController
             stage.close();
             Stage primaryStage = new Stage();
             DataProcessingController dataProcessingController = loader.getController();
-            dataProcessingController.processData(tableData,dataName);
             dataProcessingController.setCallFromDatabase(true);
+            dataProcessingController.processData(tableData,dataName);
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Chartistics");
             primaryStage.show();

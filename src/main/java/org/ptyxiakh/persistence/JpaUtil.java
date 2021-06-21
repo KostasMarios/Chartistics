@@ -14,6 +14,8 @@ public class JpaUtil
     private static EntityManagerFactory emf;
     Measurements measurement;
     List <Measurements> measurementsList ;
+    //Η μέθοδος αποθηκεύει τα δεδομένα στη βάση δεδομένων
+    //επιστρέφει έναν ακέραιο με βάση τον οποίο εμφανίζει το κατάλληλο παράθυρο με το αντίστοιχο μήνυμα
     public int create(String name, Map<String,Double> tableData)
     {
         int savingProssecc;
@@ -33,17 +35,13 @@ public class JpaUtil
         entityManager.persist(data);
         //Σε περίπτωση που παρουσιαστεί PersistenceException
        //εμφανίσε μήνυμα διπλοεγγραφής
-//        Popup popup = new Popup();
         try
         {
             entityManager.flush();
         }
         catch (PersistenceException ex)
         {
-
-//            popup.sqlPopUp(1);
             successfulStorage = false;
-//            savingProssecc= 1;
         }
 
         entityManager.getTransaction().commit();
@@ -51,9 +49,7 @@ public class JpaUtil
         emf.close();
         if(successfulStorage)
         {
-//            popup.sqlPopUp(2);
             savingProssecc=2;
-
         }
         else
             savingProssecc =1;
