@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.ptyxiakh.persistence.Data;
 import org.ptyxiakh.persistence.DataQuery;
 
 import java.io.IOException;
@@ -45,6 +46,9 @@ public class StartPageController
     @FXML
     private Label dataLoadingLabel;
 
+    @FXML
+    private Button delete_button;
+
     private Task<Void> task;
 
     public void DataBaseButtonClicked(ActionEvent event)
@@ -77,6 +81,7 @@ public class StartPageController
                             startpage_listView.setVisible(true);
                             startpage_listView.getSelectionModel().select(0);
                             buck_button.setVisible(true);
+                            delete_button.setVisible(true);
                             ok_button.setVisible(true);
                         }
                     }
@@ -151,4 +156,11 @@ public class StartPageController
         }
     }
 
+    public void onDeleteButton(ActionEvent event)
+    {
+        Data dataToDelete = null;
+        String name = startpage_listView.getSelectionModel().getSelectedItem();
+        dataToDelete =DataQuery.findDataToDelete(name);
+        DataQuery.deleteRecord(dataToDelete);
+    }
 }

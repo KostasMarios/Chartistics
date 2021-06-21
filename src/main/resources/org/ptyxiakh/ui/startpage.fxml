@@ -55,6 +55,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Button fx:id="delete_button" layoutX="299.0" layoutY="465.0" mnemonicParsing="false" onAction="#onDeleteButton" text="Διαγραφή" visible="false" />
       <Button fx:id="ok_button" layoutX="447.0" layoutY="465.0" mnemonicParsing="false" onAction="#okButtonClicked" prefHeight="24.0" prefWidth="59.0" text="ΟΚ" visible="false" wrapText="true">
          <cursor>
             <Cursor fx:constant="HAND" />

@@ -45,4 +45,35 @@ public  class DataQuery
         emf.close();
         return (LinkedHashMap<String, Double>) dataMap;
     }
+
+    public static Data findDataToDelete(String dataName)
+    {
+        Data dataToDelete = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("select d from Data d");
+        List<Data> list = query.getResultList();
+        for (Data data: list)
+        {
+            if(data.getName().equals(dataName))
+            {
+                dataToDelete=data;
+
+            }
+        }
+        em.close();
+        emf.close();
+        return dataToDelete;
+    }
+
+    public static void deleteRecord(Data data)
+    {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.remove(data);
+        em.getTransaction().commit();
+    }
+
 }
