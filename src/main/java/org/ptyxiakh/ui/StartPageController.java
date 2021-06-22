@@ -9,10 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.ptyxiakh.persistence.Data;
 import org.ptyxiakh.persistence.DataQuery;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -158,9 +161,52 @@ public class StartPageController
 
     public void onDeleteButton(ActionEvent event)
     {
-        Data dataToDelete = null;
+        progressIndicator.setVisible(true);
+        dataLoadingLabel.setText("Διαγραφή...");
+        dataLoadingLabel.setVisible(true);
         String name = startpage_listView.getSelectionModel().getSelectedItem();
-        dataToDelete =DataQuery.findDataToDelete(name);
-        DataQuery.deleteRecord(dataToDelete);
+        task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception
+            {
+                ObservableList<String> listView = FXCollections.observableArrayList();
+                boolean deleted = false;
+                Data dataToDelete = null;
+                dataToDelete =DataQuery.findDataToDelete(name);
+                deleted =  DataQuery.deleteRecord(dataToDelete);
+                if (deleted)
+                    listView.setAll(DataQuery.getDataName());
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        progressIndicator.setVisible(false);
+                        dataLoadingLabel.setVisible(false);
+                        if(!listView.isEmpty())
+                        {
+                            startpage_listView.setItems(listView);
+                        }
+                        else
+                        {
+                            dataLoadingLabel.setText("Η διαγραφή απέτυχε!!!");
+                            dataLoadingLabel.setFont(javafx.scene.text.Font.font(Font.BOLD));
+                        }
+                    }
+                });
+                return null;
+            }
+        };
+        new Thread(task).start();
+//        if(deleted)
+//        {
+            //System.out.println("Data removed!!!");
+
+
+            //startpage_listView.setItems(listView);
+       //}
+//        else
+            //System.out.println("Data is still there");
+
     }
 }

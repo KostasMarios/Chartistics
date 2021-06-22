@@ -67,13 +67,18 @@ public  class DataQuery
         return dataToDelete;
     }
 
-    public static void deleteRecord(Data data)
+    public static boolean deleteRecord(Data data)
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
         EntityManager em = emf.createEntityManager();
+        Data removeData = em.find(Data.class, data.getId());
         em.getTransaction().begin();
-        em.remove(data);
+        em.remove(removeData);
         em.getTransaction().commit();
+        em.close();
+        emf.close();
+
+        return true;
     }
 
 }
