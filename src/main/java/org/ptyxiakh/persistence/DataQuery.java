@@ -1,15 +1,57 @@
 package org.ptyxiakh.persistence;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public  class DataQuery
 {
+    //Η μέθοδος αποθηκεύει τα δεδομένα στη βάση δεδομένων
+    //επιστρέφει έναν ακέραιο με βάση τον οποίο εμφανίζει το κατάλληλο παράθυρο με το αντίστοιχο μήνυμα
+    public static int create(String name, Map<String,Double> tableData)
+    {
+        int savingProssecc;
+        boolean successfulStorage = true;
+        Measurements measurement = new Measurements();
+        List <Measurements> measurementsList = new ArrayList<>();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.getTransaction().begin();
+        Data data = new Data(name);
+        //Δημιουργία αντικειμένων Measurements από τα δεδομένα του map
+        //και αποθήκευση στη βάση δεδομένων
+        tableData.forEach( (k,v) ->
+        {
+            //measurement = new Measurements(k,v.doubleValue());
+            measurement.setDate(k);
+            measurement.setValue(v);
+            data.getMeasurementsList().add(measurement);
+        });
+        entityManager.persist(data);
+        //Σε περίπτωση που παρουσιαστεί PersistenceException
+        //εμφανίσε μήνυμα διπλοεγγραφής
+        try
+        {
+            entityManager.flush();
+        }
+        catch (PersistenceException ex)
+        {
+            successfulStorage = false;
+        }
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        emf.close();
+        if(successfulStorage)
+        {
+            savingProssecc=2;
+        }
+        else
+            savingProssecc =1;
+        return savingProssecc;
+    }
     public static List<String> getDataName()
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");

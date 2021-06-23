@@ -27,6 +27,7 @@ import org.ptyxiakh.businessInfrastructure.TimeSeries;
 import org.ptyxiakh.domain.Arima;
 import org.ptyxiakh.domain.ArimaParams;
 import org.ptyxiakh.domain.ForecastResult;
+import org.ptyxiakh.persistence.DataQuery;
 import org.ptyxiakh.persistence.JpaUtil;
 
 import java.io.IOException;
@@ -286,8 +287,8 @@ public class DataProcessingController implements Initializable
             protected Void call() throws Exception
             {
                 int savingProcess;
-                JpaUtil jpaUtil = new JpaUtil();
-                savingProcess = jpaUtil.create(dataNameLabel.getText(),tableData);
+                //JpaUtil jpaUtil = new JpaUtil();
+                savingProcess = DataQuery.create(dataNameLabel.getText(),tableData);
 //                System.out.println("Saving Process is:"+savingProcess);
                 Platform.runLater(new Runnable() {
                     @Override
