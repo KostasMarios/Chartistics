@@ -170,8 +170,8 @@ public class StartPageController
             protected Void call() throws Exception
             {
                 ObservableList<String> listView = FXCollections.observableArrayList();
-                boolean deleted = false;
-                Data dataToDelete = null;
+                boolean deleted ;
+                Data dataToDelete;
                 dataToDelete =DataQuery.findDataToDelete(name);
                 deleted =  DataQuery.deleteRecord(dataToDelete);
                 if (deleted)
@@ -198,15 +198,5 @@ public class StartPageController
             }
         };
         new Thread(task).start();
-//        if(deleted)
-//        {
-            //System.out.println("Data removed!!!");
-
-
-            //startpage_listView.setItems(listView);
-       //}
-//        else
-            //System.out.println("Data is still there");
-
     }
 }
