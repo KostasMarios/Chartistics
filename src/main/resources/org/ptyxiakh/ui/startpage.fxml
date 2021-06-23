@@ -60,7 +60,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="310.0" layoutY="407.0" prefHeight="43.0" prefWidth="47.0" visible="false" />
+      <ProgressIndicator fx:id="progressIndicator" layoutX="310.0" layoutY="407.0" prefHeight="36.0" prefWidth="46.0" visible="false" />
       <Label fx:id="dataLoadingLabel" layoutX="149.0" layoutY="421.0" text="Φόρτωση δεδομένων..." visible="false" wrapText="true" />
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -163,7 +164,8 @@ public class StartPageController
     public void onDeleteButton(ActionEvent event)
     {
         progressIndicator.setVisible(true);
-        dataLoadingLabel.setText("Διαγραφή...");
+        dataLoadingLabel.setText("Διαγραφή δεδομένων...");
+
         dataLoadingLabel.setVisible(true);
         String name = startpage_listView.getSelectionModel().getSelectedItem();
         task = new Task<Void>() {

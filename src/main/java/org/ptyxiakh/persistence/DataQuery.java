@@ -1,7 +1,6 @@
 package org.ptyxiakh.persistence;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,6 @@ public  class DataQuery
     {
         int savingProssecc;
         boolean successfulStorage = true;
-        Measurements measurement = new Measurements();
-        List <Measurements> measurementsList = new ArrayList<>();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
@@ -24,9 +21,7 @@ public  class DataQuery
         //και αποθήκευση στη βάση δεδομένων
         tableData.forEach( (k,v) ->
         {
-            //measurement = new Measurements(k,v.doubleValue());
-            measurement.setDate(k);
-            measurement.setValue(v);
+            Measurements measurement = new Measurements(k,v.doubleValue());
             data.getMeasurementsList().add(measurement);
         });
         entityManager.persist(data);

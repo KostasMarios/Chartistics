@@ -57,7 +57,7 @@ public class Popup
         //Έλεγχος τύπου σφάλματος
         switch (type)
         {
-            case 1: label.setText("Αυτή η εγγραφή υπάρχει ήδη στη βάση δεδομένων!");
+            case 1: label.setText("Αυτή η εγγραφή υπάρχει ήδη!");
                 break;
             case 2: label.setText("Τα δεδομένα αποθηκεύτηκαν!");
                 break;
