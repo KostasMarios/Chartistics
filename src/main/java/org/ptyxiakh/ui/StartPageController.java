@@ -58,7 +58,8 @@ public class StartPageController
     {
         progressIndicator.setVisible(true);
         dataLoadingLabel.setVisible(true);
-        task = new Task<Void>() {
+        task = new Task<Void>()
+        {
             @Override
             protected Void call() throws Exception
             {
@@ -183,14 +184,20 @@ public class StartPageController
                     {
                         progressIndicator.setVisible(false);
                         dataLoadingLabel.setVisible(false);
-                        if(!listView.isEmpty())
+                        if(deleted)
                         {
                             startpage_listView.setItems(listView);
+                            if (startpage_listView.getItems().isEmpty())
+                            {
+                                startpage_listView.setVisible(false);
+                                noDataLabel.setVisible(true);
+                            }
                         }
                         else
                         {
                             dataLoadingLabel.setText("Η διαγραφή απέτυχε!!!");
                             dataLoadingLabel.setFont(javafx.scene.text.Font.font(Font.BOLD));
+                            dataLoadingLabel.setVisible(true);
                         }
                     }
                 });
