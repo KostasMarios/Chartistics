@@ -30,7 +30,7 @@ import java.util.TreeMap;
 * και βλέπει πληροφορίες γι'αυτά.
 * Ο Controller επικοινωνεί με την κλάση JSON
 * */
-public class Controller
+public class InternetDataController
 {
 
     JSON json;

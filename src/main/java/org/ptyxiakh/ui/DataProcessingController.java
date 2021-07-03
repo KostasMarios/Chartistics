@@ -243,7 +243,7 @@ public class DataProcessingController implements Initializable
         {
             if(netSource)
             {
-                Parent basePageParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+                Parent basePageParent = FXMLLoader.load(getClass().getResource("internetData.fxml"));
                 Scene basePageScene = new Scene(basePageParent);
                 Stage dataProcessingPage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 dataProcessingPage.hide();

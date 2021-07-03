@@ -103,7 +103,7 @@ public class StartPageController
             Stage stage = (Stage) e_button.getScene().getWindow();
             stage.close();
             Stage primaryStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("internetData.fxml"));
             primaryStage.setTitle("Chartistics");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
