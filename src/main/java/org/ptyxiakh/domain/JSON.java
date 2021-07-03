@@ -14,11 +14,6 @@ public class JSON
     //Η λίστα metadataList αποθηκεύει πληροφορίες για τα δεδομένα
     private ArrayList<String> metadataList = new ArrayList<>();
     private int responseCode;
-//    private String stringHelper;
-//    public List<Double> listDoubles;
-//    public static Double[] doubles;
-//    double[] primitiveDoubles;
-//    Collection<Double> values;
     //Αρχικοποίηση ενός αντικειμένους ροής εισόδου για την ανάγνωση json
     InputStream jsonStream;
     //Δημιουργία LinkedHashMap,ώστε να διατηρείτε η σειρά των δεδομένων
@@ -61,7 +56,7 @@ public class JSON
                 JsonReader reader = Json.createReader(jsonStreamReader);
                 //Λάβε το ριζικό αντικείμενο json
                 JsonObject jsonObject = reader.readObject();
-               reader.close();
+                reader.close();
                 //Ανέλυσε το ριζικό αντικείμενο για πρόσβαση στις τιμές json
                 JsonObject datasetObject =jsonObject.getJsonObject("dataset");
                 metadataList.add(datasetObject.getString("name"));
@@ -95,77 +90,14 @@ public class JSON
                         jsonTableData.put(dataArray[0].replaceAll("\"","").trim(),Double.valueOf(dataArray[1].trim()));
                     }
                 }
-//                values = jsonMap.values();
-//                doubles = values.toArray(new Double[values.size()]);
-//                listDoubles = new ArrayList<>();
-//                for (Double value: doubles)
-//                {
-//                    listDoubles.add(value);
-//                    System.out.println("Printing list value: "+value);
-//                }
-//                primitiveDoubles = ArrayUtils.toPrimitive(doubles);
-//                System.out.println("------Printing Map keys---------");
-//                for (String key : jsonMap.keySet())
-//                {
-//                    System.out.println(key);
-//                }
-//                System.out.println("--------Printing Map values----------");
-//                for (Double values : jsonMap.values())
-//                {
-//                    System.out.println(values);
-//
-//                }
-                //O Αλγόριθμος AugmentedDickeyFuller  με βάση τον αριθμό των lag ελέγχει εάν τα δεδομένα
-                //είναι σταθερά(stationary)
-//                AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(primitiveDoubles,20);
-//                if(augmentedDickeyFuller.isNeedsDiff())
-//                    System.out.println("The data are not stationary");
-//                else
-//                {
-//                    System.out.println("The data are stationary");
-//                    Stats stats = new Stats();
-//                    //Τα acfValues είναι όσα και τα lag
-//                    double[] acfValues = stats.getAcf(listDoubles,20);
-//                    for (double value: acfValues )
-//                    {
-//                        System.out.println("Acf value: "+value);
-//                    }
-//                    int p = 8;
-//                    int d = 20;
-//                    int q = 5;
-//                    int P = 0;
-//                    int D = 0;
-//                    int Q = 0;
-//                    int m = 0;
-//                    int forecastSize = 1;
-//                    ArimaParams arimaParams = new ArimaParams(6,20,7,2,1,1,1);
-//                    ForecastResult forecastResult = Arima.forecast_arima(primitiveDoubles, forecastSize, arimaParams);
-//                    double[] forecastData = forecastResult.getForecast();
-//                    for (int i=0;i<forecastData.length;i++)
-//                    {
-//                        System.out.println(forecastData[i]);
-//                    }
-//                    System.out.println(forecastResult.getLog());
-//                    System.out.println(forecastResult.getRMSE());
-//                }
-//                System.out.println("P-value of GDP: "+augmentedDickeyFuller.pValue());
-//                TimeSeries timeSeriesJson = new TimeSeries(primitiveDoubles,"GDP-Greece");
-//                AlgoSecondOrderDifferencing algoSecDiff = new AlgoSecondOrderDifferencing();
-//                algoSecDiff.runAlgorithm(timeSeriesJson);
-//                algoSecDiff.printStats();
 
             }
         }
         //Σε περίπτωση που δεν υπάρχει σύνδεση στο δίκτυο
         catch (IOException malformedURLException)
         {
-//            System.out.println("No internet connection");
             return -1;
         }
-//        catch(Exception e)
-//        {
-//            e.printStackTrace();
-//        }
         return 1;
     }
 
@@ -179,8 +111,6 @@ public class JSON
 {
     return dataName;
 }
-
-    //public int getQuandleResponseCode(){ return responseCode;}
 
     //Επιστρέφει τα δεδομένα του πίνακα JSON
     public static Map<String,Double> getJsonTableData()

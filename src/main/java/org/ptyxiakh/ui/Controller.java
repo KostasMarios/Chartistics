@@ -377,13 +377,9 @@ public class Controller
             DataProcessingController dataProcessingController = loader.getController();
             dataProcessingController.setNetSource(true);
             dataProcessingController.processData(tableData,dataName);
-//            stage.close();
-//            Stage primaryStage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Chartistics");
             stage.show();
-//            primaryStage.setScene(new Scene(root));
-//            primaryStage.show();
         }
         catch(IOException ex)
         {

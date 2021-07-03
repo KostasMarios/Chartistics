@@ -125,13 +125,10 @@ public class DataProcessingController implements Initializable
     private Label savingDataLabel;
     @FXML
     private ProgressIndicator savingDataIndicator;
-    private static String dataName;
     private Collection<Double> DoublesCollection;
     private Double[] DoublesArray;
-    private List<Double> listDoubles;
     private double[] doublePrimitiveArray;
     private  Map<String,Double> tableData;
-    private String firstMapDate;
     private int lagValue;
     private boolean netSource;
     //Δήλωση παραμέτρων Arima
@@ -150,7 +147,6 @@ public class DataProcessingController implements Initializable
         qParameterText.setVisible(false);
        firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
 //       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
-
     }
     //Η μέθοδος αυτή χρησιμοποιείτε για να εντοπιστεί
    //εάν η χρήση τις κλάσης γίνεται με δεδομένα της βάσης δεδομένων ή του διαδικτύου
@@ -311,7 +307,6 @@ public class DataProcessingController implements Initializable
 //        lagNegativeLabel.setVisible(false);
         stationarityLabel.setVisible(false);
         differencingButton.setVisible(false);
-        //Να τροποποιήσω την μέθοδο για τα lags με ανώτατο όριο το 12*(nobs/100)^(1/4)
         lagValue= (int) (12*(Math.pow((tableData.size()/100),(1/4))));
 //        if(lagTextField.getText().isEmpty())
 //            lagWarningLabel.setVisible(true);
@@ -327,12 +322,6 @@ public class DataProcessingController implements Initializable
             DoublesArray = DoublesCollection.toArray(new Double[DoublesCollection.size()]);
             //3)Μετατροπή του πίνακα από αντικείμενα Double σε πρωτόγονo τύπο double
             doublePrimitiveArray = ArrayUtils.toPrimitive(DoublesArray);
-//        listDoubles = new ArrayList<>();
-//        for (Double value:  DoublesArray)
-//        {
-//            listDoubles.add(value);
-//            System.out.println("Printing list value: "+value);
-//        }
             //O Αλγόριθμος AugmentedDickeyFuller  με βάση τον αριθμό των lag ελέγχει εάν τα δεδομένα
             //είναι σταθερά(stationary)
         for(int i=1;i<=lagValue;i++)
@@ -363,7 +352,6 @@ public class DataProcessingController implements Initializable
                 thirdStepLabel.setVisible(true);
                 acfPlotButton.setVisible(true);
                 qParameterLabel.setVisible(true);
-                //qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι\nπάνω από το θετικό όριο.");
                 qParameterText.setVisible(true);
                 qParameterTextField.setVisible(true);
                 fourthStepLabel.setVisible(true);
@@ -451,7 +439,6 @@ public class DataProcessingController implements Initializable
             thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ ΜA(q)");
             thirdStepLabel.setVisible(true);
             qParameterLabel.setVisible(true);
-            //qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι\nπάνω από το θετικό όριο.");
             qParameterText.setVisible(true);
             qParameterTextField.setVisible(true);
             fourthStepLabel.setVisible(true);

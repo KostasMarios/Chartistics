@@ -11,7 +11,7 @@ public  class DataQuery
     //επιστρέφει έναν ακέραιο με βάση τον οποίο εμφανίζει το κατάλληλο παράθυρο με το αντίστοιχο μήνυμα
     public static int create(String name, Map<String,Double> tableData)
     {
-        int savingProssecc;
+        int savingProcess;
         boolean successfulStorage = true;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
         EntityManager entityManager = emf.createEntityManager();
@@ -41,11 +41,11 @@ public  class DataQuery
         emf.close();
         if(successfulStorage)
         {
-            savingProssecc=2;
+            savingProcess=2;
         }
         else
-            savingProssecc =1;
-        return savingProssecc;
+            savingProcess =1;
+        return savingProcess;
     }
     public static List<String> getDataName()
     {
