@@ -100,7 +100,7 @@
             <children>
                 <HBox fx:id="firstInvisibleHbox" maxWidth="-Infinity" prefHeight="25.0" prefWidth="1216.0">
                     <children>
-                        <Label text="ΠΑΡΑΜΕΤΡΟΙ ΔΕΔΟΜΕΝΩΝ" underline="true">
+                        <Label text="ΔΙΑΤΑΞΗ ΔΟΜΕΝΩΝ" underline="true">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>

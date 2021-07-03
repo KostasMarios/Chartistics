@@ -26,7 +26,7 @@ public class Popup
         this.popupWindow.setResizable(false);
         this.popupWindow.initModality(Modality.APPLICATION_MODAL);
         this.label = new Label();
-        this.button = new Button("Close");
+        this.button = new Button("OK");
         button.setOnAction(e -> this.popupWindow.close());
         this.vBoxLayout = new VBox(10);
         this.vBoxLayout.getChildren().addAll(this.label,this.button);

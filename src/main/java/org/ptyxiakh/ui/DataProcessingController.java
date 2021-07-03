@@ -359,7 +359,7 @@ public class DataProcessingController implements Initializable
             {
                 stationarityLabel.setText("Τα δεδομένα είναι σταθερά,οπότε d=0.\nΤο 2ο βήμα θα παραληφθεί.");
                 stationarityLabel.setVisible(true);
-                thirdStepLabel.setText("3)ΔΙΑΓΡΑΜΜΑ ΑΥΤΟΣΥΣΧΕΤΙΣΗΣ ΚΑΙ ΕΙΣΑΓΩΓΗ ΤΙΜΗΣ AM(q)");
+                thirdStepLabel.setText("3)ΔΙΑΓΡΑΜΜΑ ΑΥΤΟΣΥΣΧΕΤΙΣΗΣ ΚΑΙ ΕΙΣΑΓΩΓΗ ΤΙΜΗΣ MA(q)");
                 thirdStepLabel.setVisible(true);
                 acfPlotButton.setVisible(true);
                 qParameterLabel.setVisible(true);
@@ -417,9 +417,6 @@ public class DataProcessingController implements Initializable
         TimeSeries differecedTimeSeries = timeSeries.difference(1,times);
         double[] differencedData = TimeSeries.difference(doublePrimitiveArray,1,times);
 
-        //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
-        Plots.plotAcf(differecedTimeSeries,lagValue);
-
         //Έλεγχος με τον AugmentedDickeyFuller της σταθερότητας των δεδομένων
         //που έγινε η χρήση της μεθόδου της διαφοράς
         for(int i=1;i<=12;i++)
@@ -435,12 +432,23 @@ public class DataProcessingController implements Initializable
         {
             isStationaryLabel.setText("Τα δεδομένα δεν είναι σταθερά!");
             isStationaryLabel.setVisible(true);
+            thirdStepLabel.setVisible(false);
+            qParameterLabel.setVisible(false);
+            qParameterText.setVisible(false);
+            qParameterTextField.setVisible(false);
+            fourthStepLabel.setVisible(false);
+            pacfPlotButton.setVisible(false);
+            pParameterTextField.setVisible(false);
+            pParameterLabel.setVisible(false);
+            pParameterText.setVisible(false);
         }
         else
         {
             isStationaryLabel.setText("Τα δεδομένα είναι σταθερά!");
             isStationaryLabel.setVisible(true);
-            thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ AΜ(q)");
+            //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
+            Plots.plotAcf(differecedTimeSeries,lagValue);
+            thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ ΜA(q)");
             thirdStepLabel.setVisible(true);
             qParameterLabel.setVisible(true);
             //qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι\nπάνω από το θετικό όριο.");
