@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.ptyxiakh.persistence.Data;
 import org.ptyxiakh.persistence.DataQuery;
@@ -105,6 +106,7 @@ public class StartPageController
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("internetData.fxml"));
             primaryStage.setTitle("Chartistics");
+            primaryStage.getIcons().add(new Image("statistics_icon.png"));
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
@@ -134,6 +136,7 @@ public class StartPageController
             dataProcessingController.processData(tableData,dataName);
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Chartistics");
+            primaryStage.getIcons().add(new Image("statistics_icon.png"));
             primaryStage.show();
         }
         catch(IOException ex)
@@ -151,6 +154,7 @@ public class StartPageController
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
             primaryStage.setTitle("Chartistics");
+            primaryStage.getIcons().add(new Image("statistics_icon.png"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setResizable(false);
             primaryStage.show();

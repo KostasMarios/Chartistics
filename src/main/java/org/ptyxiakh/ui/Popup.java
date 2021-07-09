@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ public class Popup
     {
         this.popupWindow = new Stage();
         this.popupWindow.setResizable(false);
+        this.popupWindow.getIcons().add(new Image("error_icon.png"));
         this.popupWindow.initModality(Modality.APPLICATION_MODAL);
         this.label = new Label();
         this.button = new Button("OK");

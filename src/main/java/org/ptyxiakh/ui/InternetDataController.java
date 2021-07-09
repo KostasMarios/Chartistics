@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -349,6 +350,7 @@ public class InternetDataController
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
             primaryStage.setTitle("Chartistics");
+            primaryStage.getIcons().add(new Image("statistics_icon.png"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setResizable(false);
             primaryStage.show();
@@ -379,6 +381,7 @@ public class InternetDataController
             dataProcessingController.processData(tableData,dataName);
             stage.setScene(scene);
             stage.setTitle("Chartistics");
+            stage.getIcons().add(new Image("statistics_icon.png"));
             stage.show();
         }
         catch(IOException ex)
