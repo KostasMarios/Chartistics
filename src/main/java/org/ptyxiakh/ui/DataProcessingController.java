@@ -174,11 +174,13 @@ public class DataProcessingController implements Initializable
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Double>, String> p)
             {
-                // Αυτή η επιστροφή επιστρέφει την ιδιότητα για ένα μόνο κελί, δεν μπορούμε να χρησιμοποιήσουμε βρόχο εδώ
-                // Για την πρώτη στήλη χρσησιμοποιούμε το κλειδί του Map
+                /* Αυτή η επιστροφή επιστρέφει την ιδιότητα για ένα μόνο κελί,
+                 *δεν μπορούμε να χρησιμοποιήσουμε βρόχο εδώ
+                 *Για την πρώτη στήλη χρσησιμοποιούμε το κλειδί του Map*/
                 return new SimpleStringProperty(p.getValue().getKey());
             }
         });
+        //Συμπλήρωσε την στήλη με τις μετρήσεις
         measurementsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, Double>, ObservableValue<Double>>()
         {
             @Override
@@ -327,7 +329,7 @@ public class DataProcessingController implements Initializable
         for(int i=1;i<=lagValue;i++)
         {
             AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(doublePrimitiveArray, lagValue);
-            //Εάν βρεθεί σε κάποιο lag ότι τα δεδομένα είναι σταθερά αύξσησε τον μετρητή
+            //Εάν βρεθεί σε κάποιο lag ότι τα δεδομένα είναι σταθερά αύξησε τον μετρητή
             if (!augmentedDickeyFuller.isNeedsDiff())
                 stationaryCounter++;
         }
@@ -375,7 +377,7 @@ public class DataProcessingController implements Initializable
             }
     }
 
-    //Διαδικασία υλοποίησης της μεθόδου διαφοράς,εμφάνιση διαγράμματος αυτοσυσχέτισης
+    //Διαδικασία υλοποίησης της μεθόδου διαφοράς, εμφάνιση διαγράμματος αυτοσυσχέτισης
     //και έλεγχος σταθερότητας
     public void startDifferencing(ActionEvent event)
     {

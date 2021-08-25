@@ -21,7 +21,11 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+/*Αυτή η κλάση περιέχει μεθόδους για την οθόνη έναρξης
+ * συγκεκριμένα για την εισαγωγή δεδομένων
+ * από τα αποθηκευμένα ή το διαδίκτυο, καθώς και για
+ *την περιήγηση.
+ * */
 public class StartPageController
 {
     @FXML
@@ -60,6 +64,9 @@ public class StartPageController
     {
         progressIndicator.setVisible(true);
         dataLoadingLabel.setVisible(true);
+        /*Χρήση του Task για την εμφάνιση των αποθηκευμένων δεδομένων
+         * η διαδικασία θα γίνει σ' ενα νήμα παρασκηνίου
+         * */
         task = new Task<Void>()
         {
             @Override
@@ -67,7 +74,8 @@ public class StartPageController
             {
                 ObservableList<String> listView = FXCollections.observableArrayList();
                 listView.setAll(DataQuery.getDataName());
-
+                /*Με την χρήση της μεθόδου runLater() το νήμα του JavaFx
+                 * αλλάζει την σκηνή. */
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run()
@@ -100,6 +108,7 @@ public class StartPageController
 
     public void InternetDataButtonClicked(ActionEvent event)
     {
+        /*Διαδικασία αλλαγής σκηνής*/
         try {
             Stage stage = (Stage) e_button.getScene().getWindow();
             stage.close();
@@ -115,14 +124,16 @@ public class StartPageController
             ex.printStackTrace();
         }
     }
-
+    /*Η μέθοδος αυτή καλείτε όταν ο χρήστης επιλέγει
+     * αποθηκευμένα δεδομένα*/
     public  void okButtonClicked(ActionEvent event)
     {
         Map<String,Double> tableData = new LinkedHashMap<>();
         String dataName= " ";
         String name = startpage_listView.getSelectionModel().getSelectedItem();
         tableData = DataQuery.findData(name);
-
+        /*Εμφάνιση της οθόνης επεξεργασίας των δεδομένων
+         * και δημιουργία αντικειμένου dataProcessingController*/
         try
         {
             FXMLLoader loader = new FXMLLoader();

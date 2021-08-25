@@ -14,9 +14,9 @@ public class JSON
     //Η λίστα metadataList αποθηκεύει πληροφορίες για τα δεδομένα
     private ArrayList<String> metadataList = new ArrayList<>();
     private int responseCode;
-    //Αρχικοποίηση ενός αντικειμένους ροής εισόδου για την ανάγνωση json
+    //Αρχικοποίηση ενός αντικειμένου ροής εισόδου για την ανάγνωση json
     InputStream jsonStream;
-    //Δημιουργία LinkedHashMap,ώστε να διατηρείτε η σειρά των δεδομένων
+    //Δημιουργία LinkedHashMap, ώστε να διατηρείτε η σειρά των δεδομένων
     private static  Map<String,Double> jsonTableData = new LinkedHashMap<>();
     private static String dataName;
 
@@ -31,7 +31,7 @@ public class JSON
             URL url = new URL(stringUrl);
             if(!jsonTableData.isEmpty())
             jsonTableData.clear();
-            //Ανέλυσε τη διεύθυνση URL στο HttpsURLConnection για να ανοίξει η σύνδεση προκειμένου να λειφθούν τα δεδομένα JSON
+            //Ανέλυσε τη διεύθυνση URL στο HttpsURLConnection για να ανοίξει η σύνδεση προκειμένου να ληφθούν τα δεδομένα JSON
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             //Όρισε το αίτημα σε GET
             httpsURLConnection.setRequestMethod("GET");
@@ -52,7 +52,7 @@ public class JSON
             {
                 jsonStream = httpsURLConnection.getInputStream();
                 Reader jsonStreamReader = new InputStreamReader(jsonStream, StandardCharsets.UTF_8);
-                //Δημιούργήσε json αναγνώστη για να διαβάζει δεδομένα json από τον Ιστό
+                //Δημιούργησε json αναγνώστη για να διαβάζει δεδομένα json από τον Ιστό
                 JsonReader reader = Json.createReader(jsonStreamReader);
                 //Λάβε το ριζικό αντικείμενο json
                 JsonObject jsonObject = reader.readObject();
@@ -67,8 +67,8 @@ public class JSON
                 metadataList.add(datasetObject.getString("oldest_available_date"));
                 //Δημιουργία πίνακα json για τα ονόματα των στηλών του πίνακα
                 JsonArray columnNames = datasetObject.getJsonArray("column_names");
-                //Διαδικασία διαχωρισμού των τιμών του πίνακα με κόμα
-                //Εάν τα ονόματα των στηλών είναι περισσότερα από ένα, χρησμοποιούμε κόμα
+                //Διαδικασία διαχωρισμού των τιμών του πίνακα με κόμμα
+                //Εάν τα ονόματα των στηλών είναι περισσότερα από ένα, χρησιμοποιούμε κόμμα
                 for(JsonValue value : columnNames)
                 {
                     valueString += value.toString().replaceAll("\"","");
