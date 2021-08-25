@@ -64,7 +64,7 @@ public class InternetDataController
     @FXML
     private ComboBox countries_ComboBox;
     private ObservableList<String> countriesData=FXCollections.observableArrayList();
-    private Map<String,String> mapXwres = new TreeMap<>();
+    private Map<String,String> mapXwres ;
     private Map<String,String> mapHelper ;
     @FXML
     private ToggleGroup orderToggleGroup;
@@ -119,11 +119,11 @@ public class InternetDataController
         json = new JSON();
         readFiles = new ReadFiles();
         readFiles.readFileData("xwres.txt");
-        mapHelper = readFiles.getFileData();
-        for (Map.Entry<String,String> xwres : mapHelper.entrySet() )
+        mapXwres = new TreeMap<>(readFiles.getFileData());
+        for (Map.Entry<String,String> xwres : mapXwres.entrySet() )
         {
             countriesData.add(xwres.getKey());
-            mapXwres.put(xwres.getKey(), xwres.getValue());
+            //mapXwres.put(xwres.getKey(), xwres.getValue());
         }
         readFiles.clearMap();
 
