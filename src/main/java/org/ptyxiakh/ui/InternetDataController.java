@@ -27,10 +27,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /*
-* Με τον  Controller ο χρήστης επιλέγει τα δεδομένα που θέλει για κάποια χώρα ή παγκόσμια
-* και βλέπει πληροφορίες γι'αυτά.
-* Ο Controller επικοινωνεί με την κλάση JSON
-* */
+ * Με τον Internet Data Controller ο χρήστης επιλέγει τα δεδομένα που θέλει για κάποια χώρα ή παγκόσμια
+ * και βλέπει πληροφορίες γι'αυτά.
+ * Ο InternetDataController επικοινωνεί με την κλάση JSON
+ * */
 public class InternetDataController
 {
 
@@ -38,8 +38,9 @@ public class InternetDataController
     ReadFiles readFiles;
     private ArrayList<String> metadataList = new ArrayList<>();
     int okButtonCounter = 0;
-    //Με αυτό τον χάρτη αντιστοιχείτε ο κωδικός του TitledPane με το
-    //id της κατηγορίας π.χ. bp_TitledPane -> BP
+    /*Με αυτό τον χάρτη αντιστοιχείτε ο κωδικός του TitledPane με το
+     *id της κατηγορίας π.χ. bp_TitledPane -> BP
+     * */
     private Map<String,String> dataCategoryMap;
     private ObservableList<Map<String, String>> dataItems = FXCollections.<Map<String, String>>observableArrayList();
     @FXML
