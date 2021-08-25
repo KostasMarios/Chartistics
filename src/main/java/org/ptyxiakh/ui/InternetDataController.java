@@ -111,7 +111,7 @@ public class InternetDataController
     //Βάζουμε true επειδή η φθίνουσα είναι τιμή προεπιλογής
     private boolean descOrderSelected = true;
 
-    //Η μέθοδος αυτή δίνει τις επιλογές για τα δεδομένα,την χώρα και την σειρά
+    //Η μέθοδος αυτή αφορά τις επιλογές για τα δεδομένα, την χώρα και την σειρά ταξινόμησης
     public void initialize()
     {
         //Δημιουργία αντικειμένου JSON
@@ -213,7 +213,7 @@ public class InternetDataController
         tableView.isResizable();
         tableView.setPlaceholder(new Label("Ο πίνακας είναι κενός"));
 
-        //Αλλάζει την  επιλογή του Radio Button ανάλογα με την επιλογή του χρήστη.
+        //Αλλάζει την επιλογή του Radio Button ανάλογα με την επιλογή του χρήστη.
         orderToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
         {
             @Override
@@ -235,8 +235,8 @@ public class InternetDataController
         });
    }
 
-    //Η μέθοδος αυτή συλλέγει τα δεδομένα από το quandl με βάση
-    //την προτήμηση του χρήστη
+    /*Η μέθοδος αυτή συλλέγει τα δεδομένα από το Quandl με βάση
+     *την προτίμηση του χρήστη*/
     public void okClicked(ActionEvent event)
     {
         String urlString = "https://www.quandl.com/api/v3/datasets/";
@@ -362,7 +362,7 @@ public class InternetDataController
     }
 
     /**
-     * Όταν κληθεί αυτή η μέθοδος,τα δεδομένα που επιλέξαμε
+     * Όταν κληθεί αυτή η μέθοδος, τα δεδομένα που επιλέξαμε
      * θα εμφανιστούν στο παράθυρο επεξεργασίας
      */
     public void nextClicked(ActionEvent event)
