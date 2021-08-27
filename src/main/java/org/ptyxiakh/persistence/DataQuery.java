@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
+/*Η κλάση αυτή περιέχει βασικές ενέργειες για την
+* διαχείριση των δεδομένων*/
 public  class DataQuery
 {
     //Η μέθοδος αποθηκεύει τα δεδομένα στη βάση δεδομένων
@@ -13,7 +14,10 @@ public  class DataQuery
     {
         int savingProcess;
         boolean successfulStorage = true;
+        //Η κλάση EntityManagerFactory παρέχει υποστήριξη για την κλάση EntityManager
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
+        //Η κλάση EntityManager παρέχει την σύνδεση στη βάση δεδομένων και
+        //διάφορες λειτουργίες
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
         Data data = new Data(name);
@@ -26,7 +30,7 @@ public  class DataQuery
         });
         entityManager.persist(data);
         //Σε περίπτωση που παρουσιαστεί PersistenceException
-        //εμφανίσε μήνυμα διπλοεγγραφής
+        //εμφάνισε μήνυμα διπλοεγγραφής
         try
         {
             entityManager.flush();

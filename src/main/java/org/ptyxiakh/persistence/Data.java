@@ -3,7 +3,11 @@ package org.ptyxiakh.persistence;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/*Η κλάση αυτή αποθηκεύει το όνομα του δεδομένου
+ *που επέλεξε ο χρήστης και τις αντίστοιχες μετρήσεις*/
+/*Η κλάση με το σχόλιο @Entity αποτελεί οντότητα
+* δηλαδή τα αντικείμενα αυτά θα αποθηκευτούν στη βάση
+* μέσω του JPA*/
 @Entity
 public class Data
 {
@@ -25,7 +29,6 @@ public class Data
 
     public Data( String name)
     {
-
         this.name = name;
     }
     public Integer getId() {
@@ -43,7 +46,6 @@ public class Data
     public void setMeasurementsList(List<Measurements> measurementsList) {
         this.measurementsList = measurementsList;
     }
-
 
     public String getName() {
         return name;
