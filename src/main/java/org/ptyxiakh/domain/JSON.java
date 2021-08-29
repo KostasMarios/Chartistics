@@ -83,6 +83,7 @@ public class JSON
                 JsonArray arrayObj = datasetObject.getJsonArray("data");
                 for(JsonValue value : arrayObj)
                 {
+                    //Διαδικασία αφαίρεσης αγκυλών από τα δεδομένα
                     if(value.toString().startsWith("[") && value.toString().endsWith("]"))
                     {
                         String jsonData = value.toString().replaceAll("(\\[|\\])","");
@@ -90,7 +91,6 @@ public class JSON
                         jsonTableData.put(dataArray[0].replaceAll("\"","").trim(),Double.valueOf(dataArray[1].trim()));
                     }
                 }
-
             }
         }
         //Σε περίπτωση που δεν υπάρχει σύνδεση στο δίκτυο

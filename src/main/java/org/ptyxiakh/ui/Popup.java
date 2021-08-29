@@ -44,7 +44,7 @@ public class Popup
         {
             case -2: this.label.setText("Παρουσιάστηκε κάποιο σφάλμα,παρακαλώ προσπαθήστε ξανά!");
             break;
-            case -1: this.label.setText("Ελένξτε την σύνδεσή σας στο δίκτυο!");
+            case -1: this.label.setText("Ελέγξτε την σύνδεσή σας στο δίκτυο!");
             break;
             case 0: this.label.setText("Τα δεδομένα που ζητάτε δεν υπάρχουν!");
             break;

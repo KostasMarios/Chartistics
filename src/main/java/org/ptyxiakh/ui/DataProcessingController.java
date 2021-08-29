@@ -72,7 +72,7 @@ public class DataProcessingController implements Initializable
     private Label dataNameLabel;
     //Κουμπί για έναρξη της διαδικασίας ελέγχου
     //της στατικότητας των δεδομένων με τον
-    //αλγόριμθο Augmented Dickey Fuller
+    //αλγόριθμο Augmented Dickey Fuller
     @FXML
     private Button augmentedDickeyFullerButton;
     @FXML
@@ -176,7 +176,7 @@ public class DataProcessingController implements Initializable
             {
                 /* Αυτή η επιστροφή επιστρέφει την ιδιότητα για ένα μόνο κελί,
                  *δεν μπορούμε να χρησιμοποιήσουμε βρόχο εδώ
-                 *Για την πρώτη στήλη χρσησιμοποιούμε το κλειδί του Map*/
+                 *Για την πρώτη στήλη χρησιμοποιούμε το κλειδί της απεικόνισης*/
                 return new SimpleStringProperty(p.getValue().getKey());
             }
         });
@@ -273,7 +273,7 @@ public class DataProcessingController implements Initializable
         }
     }
 
-    //Mέθοδος αποθήκευσης των δεδομένων
+    //Μέθοδος αποθήκευσης των δεδομένων
     public void saveData(ActionEvent event)
     {
         savingDataLabel.setVisible(true);
@@ -318,13 +318,13 @@ public class DataProcessingController implements Initializable
 //        {
 //            lagValue = Integer.parseInt(lagTextField.getText());
             //Διαδικασία μετατροπής Double --> double
-            //1)Αποθηκεύουμε τις τιμές του χάρτη στη συλλογή Double
+            //1)Αποθηκεύουμε τις τιμές της απεικόνισης στη συλλογή Double
             DoublesCollection = tableData.values();
             //2)Μετατροπή της συλλογής σε πίνακα
             DoublesArray = DoublesCollection.toArray(new Double[DoublesCollection.size()]);
             //3)Μετατροπή του πίνακα από αντικείμενα Double σε πρωτόγονo τύπο double
             doublePrimitiveArray = ArrayUtils.toPrimitive(DoublesArray);
-            //O Αλγόριθμος AugmentedDickeyFuller  με βάση τον αριθμό των lag ελέγχει εάν τα δεδομένα
+            //O Αλγόριθμος AugmentedDickeyFuller με βάση τον αριθμό των lag ελέγχει εάν τα δεδομένα
             //είναι σταθερά(stationary)
         for(int i=1;i<=lagValue;i++)
         {
@@ -478,7 +478,7 @@ public class DataProcessingController implements Initializable
         int count = 1;
         DecimalFormat df = new DecimalFormat("#.##");
         String arimaResult = "Πρόβλεψη:";
-        //Ελέγχος ύπαρξης τιμής στις παραμέτρους
+        //Έλεγχος ύπαρξης τιμής στις παραμέτρους
         if (qParameterTextField.getText().isEmpty() || pParameterTextField.getText().isEmpty() || forecastSizeTextField.getText().isEmpty())
         {
             arimaLabel.setText("Βάλτε τιμή στις παραμέτρους!!!");

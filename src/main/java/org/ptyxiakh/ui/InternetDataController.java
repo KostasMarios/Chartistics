@@ -38,7 +38,7 @@ public class InternetDataController
     ReadFiles readFiles;
     private ArrayList<String> metadataList = new ArrayList<>();
     int okButtonCounter = 0;
-    /*Με αυτό τον χάρτη αντιστοιχείτε ο κωδικός του TitledPane με το
+    /*Με αυτή την απεικόνιση αντιστοιχείτε ο κωδικός του TitledPane με το
      *id της κατηγορίας π.χ. bp_TitledPane -> BP
      * */
     private Map<String,String> dataCategoryMap;
@@ -65,7 +65,6 @@ public class InternetDataController
     private ComboBox countries_ComboBox;
     private ObservableList<String> countriesData=FXCollections.observableArrayList();
     private Map<String,String> mapXwres ;
-    private Map<String,String> mapHelper ;
     @FXML
     private ToggleGroup orderToggleGroup;
     @FXML
@@ -93,7 +92,7 @@ public class InternetDataController
     @FXML
     private TableColumn<Map,String> olderDateCol = new TableColumn<>("Παλαιότερη ημ/νία");
     @FXML
-    private TableColumn<Map,String> datasTableCol = new TableColumn<>("Ονόματα στηλών");
+    private TableColumn<Map,String> dataTableCol = new TableColumn<>("Ονόματα στηλών");
     @FXML
     private TableColumn<Map,String> frequencyCol = new TableColumn<>("Συχνότητα");
     @FXML
@@ -123,7 +122,6 @@ public class InternetDataController
         for (Map.Entry<String,String> xwres : mapXwres.entrySet() )
         {
             countriesData.add(xwres.getKey());
-            //mapXwres.put(xwres.getKey(), xwres.getValue());
         }
         readFiles.clearMap();
 
@@ -165,7 +163,7 @@ public class InternetDataController
                 "Υπάλληλοι σε υποδήματα",
                 "Υπάλληλοι στη φαρμακευτική",
                 "Παραγωγή στη φαρμακευτική",
-                "Ημερομισθια και μισθοι στη φαρμακευτική",
+                "Ημερομίσθια και μισθοί στη φαρμακευτική",
                 "Υπάλληλοι σε φούρνους",
                 "Ημερομίσθια και μισθοί σε φούρνους",
                 "Εγκαταστάσεις σε γαλακτοκομικά προϊόντα",
@@ -173,7 +171,7 @@ public class InternetDataController
                 "Υπάλληλοι σε γεωργικά μηχανήματα",
                 "Εγκαταστάσεις σε αγροτικά μηχανήματα",
                 "Παραγωγή σε γεωργικά μηχανήματα",
-                "Ημερομισθια και μισθοι σε αγροτικά μηχανήματα"
+                "Ημερομίσθια και μισθοί σε αγροτικά μηχανήματα"
         );
         wwDevIndData = FXCollections.observableArrayList
         (
@@ -208,7 +206,7 @@ public class InternetDataController
         lastUpdateCol.setCellValueFactory(new MapValueFactory<>("lastUpdate"));
         latestDateCol.setCellValueFactory(new MapValueFactory<>("latestDate"));
         olderDateCol.setCellValueFactory(new MapValueFactory<>("olderDate"));
-        datasTableCol.setCellValueFactory(new MapValueFactory<>("tableValues"));
+        dataTableCol.setCellValueFactory(new MapValueFactory<>("tableValues"));
         frequencyCol.setCellValueFactory(new MapValueFactory<>("frequency"));
         typeCol.setCellValueFactory(new MapValueFactory<>("type"));
         tableView.isResizable();
@@ -220,7 +218,6 @@ public class InternetDataController
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle old_toggle, Toggle new_toggle)
             {
-
                 if(orderToggleGroup.getSelectedToggle()!= null)
                 {
                     if(ascRadioButton.isSelected())

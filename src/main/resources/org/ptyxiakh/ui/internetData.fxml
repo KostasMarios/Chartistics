@@ -149,7 +149,7 @@
                 <TableColumn fx:id="lastUpdateCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Τελευταία ενημέρωση" />
                 <TableColumn fx:id="latestDateCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Νεότερη ημ/νία" />
                 <TableColumn fx:id="olderDateCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Παλαιότερη ημ/νία" />
-                <TableColumn fx:id="datasTableCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Ονόματα στηλών" />
+                <TableColumn fx:id="dataTableCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Ονόματα στηλών" />
                 <TableColumn fx:id="frequencyCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Συχνότητα" />
                 <TableColumn fx:id="typeCol" editable="false" minWidth="5.0" prefWidth="125.0" sortable="false" text="Τύπος" />
             </columns>

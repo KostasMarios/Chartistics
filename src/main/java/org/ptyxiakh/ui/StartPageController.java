@@ -88,7 +88,7 @@ public class StartPageController
                             noDataLabel.setVisible(true);
                         else
                         {
-                            startpage_label.setText("Επίλεξτε 1 από τα δεδομένα:");
+                            startpage_label.setText("Επιλέξτε 1 από τα δεδομένα:");
                             e_button.setVisible(false);
                             db_button.setVisible(false);
                             startpage_listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
