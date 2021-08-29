@@ -13,7 +13,7 @@ import java.util.TreeMap;
  */
 public class ReadFiles
 {
-    Map<String,String> fileData ; 
+    TreeMap<String,String> fileData ;
 
     Scanner scanner = null;
 
@@ -37,7 +37,7 @@ public class ReadFiles
             }
     }
 
-    public Map<String, String> getFileData()
+    public TreeMap<String, String> getFileData()
     {
         return fileData;
     }
