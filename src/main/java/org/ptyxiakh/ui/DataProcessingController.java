@@ -393,17 +393,15 @@ public class DataProcessingController implements Initializable
         {
             isStationaryLabel.setText("Εισάγεται τιμή για τη διαφορά d!!!");
             isStationaryLabel.setVisible(true);
-            System.out.println("Empty "+differenceTextField);
         }
         else if (Integer.parseInt(differenceTextField.getText())<0)
         {
             isStationaryLabel.setText("Εισάγεται θετική τιμή για τη διαφορά d !!!");
             isStationaryLabel.setVisible(true);
-            System.out.println("Negative "+differenceTextField.getText());
         }
-        else {
+        else
+        {
             times = Integer.parseInt(differenceTextField.getText());
-            System.out.println("Correct " + differenceTextField.getText());
 
             TimeSeries timeSeries = new TimeSeries(doublePrimitiveArray);
             TimeSeries differencedTimeSeries = timeSeries.difference(1, times);
@@ -413,11 +411,13 @@ public class DataProcessingController implements Initializable
             //που έγινε η χρήση της μεθόδου της διαφοράς
             for (int i = 1; i <= 12; i++) {
                 AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(differencedData, i);
-                if (!augmentedDickeyFuller.isNeedsDiff()) {
+                if (!augmentedDickeyFuller.isNeedsDiff())
+                {
                     stationarityCounterAcf++;
                 }
             }
-            if (stationarityCounterAcf == 0) {
+            if (stationarityCounterAcf == 0)
+            {
                 isStationaryLabel.setText("Τα δεδομένα δεν είναι σταθερά!");
                 isStationaryLabel.setVisible(true);
                 thirdStepLabel.setVisible(false);
@@ -429,8 +429,9 @@ public class DataProcessingController implements Initializable
                 pParameterTextField.setVisible(false);
                 pParameterLabel.setVisible(false);
                 pParameterText.setVisible(false);
-                System.out.println("stationarityCounterAcf=0");
-            } else {
+            }
+            else
+            {
                 isStationaryLabel.setText("Τα δεδομένα είναι σταθερά!");
                 isStationaryLabel.setVisible(true);
                 //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
@@ -446,9 +447,11 @@ public class DataProcessingController implements Initializable
                 pParameterLabel.setVisible(true);
                 pParameterText.setVisible(true);
 
-                pacfPlotButton.setOnAction(new EventHandler<ActionEvent>() {
+                pacfPlotButton.setOnAction(new EventHandler<ActionEvent>()
+                {
                     @Override
-                    public void handle(ActionEvent event) {
+                    public void handle(ActionEvent event)
+                    {
                         Plots.plotPacf(differencedData, lagValue);
                         arimaStepLabel.setVisible(true);
                         arimaButton.setVisible(true);
