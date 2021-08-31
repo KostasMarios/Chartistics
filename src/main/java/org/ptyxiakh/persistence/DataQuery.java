@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-/*Η κλάση αυτή περιέχει βασικές ενέργειες για την
+/*Η κλάση αυτή περιέχει βασικές ενέργειες για τη
 * διαχείριση των δεδομένων*/
 public  class DataQuery
 {
@@ -16,7 +16,7 @@ public  class DataQuery
         boolean successfulStorage = true;
         //Η κλάση EntityManagerFactory παρέχει υποστήριξη για την κλάση EntityManager
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
-        //Η κλάση EntityManager παρέχει την σύνδεση στη βάση δεδομένων και
+        //Η κλάση EntityManager παρέχει τη σύνδεση στη βάση δεδομένων και
         //διάφορες λειτουργίες
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();

@@ -174,19 +174,19 @@ public class DataProcessingController implements Initializable
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Double>, String> p)
             {
-                /* Αυτή η επιστροφή επιστρέφει την ιδιότητα για ένα μόνο κελί,
+                /*Επιστροφή ιδιότητας για ένα μόνο κελί,
                  *δεν μπορούμε να χρησιμοποιήσουμε βρόχο εδώ
                  *Για την πρώτη στήλη χρησιμοποιούμε το κλειδί της απεικόνισης*/
                 return new SimpleStringProperty(p.getValue().getKey());
             }
         });
-        //Συμπλήρωσε την στήλη με τις μετρήσεις
+        //Συμπλήρωσε τη στήλη με τις μετρήσεις
         measurementsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, Double>, ObservableValue<Double>>()
         {
             @Override
             public ObservableValue<Double> call(TableColumn.CellDataFeatures<Map.Entry<String, Double>, Double> p)
             {
-                // Για την δεύτερη στήλη χρησιμοποιούμε την τιμή του Map
+                // Για τη δεύτερη στήλη χρησιμοποιούμε την τιμή του Map
                 return new SimpleObjectProperty(p.getValue().getValue());
             }
         });
@@ -336,8 +336,8 @@ public class DataProcessingController implements Initializable
             //Διαδικασία επεξεργασίας των δεδομένων όταν αυτά δεν είναι σταθερά
             if(stationaryCounter==0)
             {
-                //Στο Label είναι δυνατή η αλλαγή γραμμής με την χρήση \n
-                stationarityLabel.setText("Τα δεδομένα δεν είναι σταθερά.\nΘα γίνει η κατάλληλη μετρατροπή στο 2ο βήμα.");
+                //Στο Label είναι δυνατή η αλλαγή γραμμής με τη χρήση \n
+                stationarityLabel.setText("Τα δεδομένα δεν είναι σταθερά.\nΘα γίνει η κατάλληλη μετατροπή στο 2ο βήμα.");
                 stationarityLabel.setVisible(true);
                 nextStepLabel.setText("2)H ΜΕΘΟΔΟΣ ΤΗΣ ΔΙΑΦΟΡΑΣ ΚΑΙ\nΕΛΕΓΧΟΣ ΜΕ ΔΙΑΓΡΑΜΜΑ ΑΥΤΟΣΥΣΧΕΤΙΣΗΣ");
                 nextStepLabel.setVisible(true);
@@ -404,7 +404,7 @@ public class DataProcessingController implements Initializable
             times = Integer.parseInt(differenceTextField.getText());
         }
         TimeSeries timeSeries = new TimeSeries(doublePrimitiveArray);
-        TimeSeries differecedTimeSeries = timeSeries.difference(1,times);
+        TimeSeries differencedTimeSeries = timeSeries.difference(1,times);
         double[] differencedData = TimeSeries.difference(doublePrimitiveArray,1,times);
 
         //Έλεγχος με τον AugmentedDickeyFuller της σταθερότητας των δεδομένων
@@ -414,7 +414,6 @@ public class DataProcessingController implements Initializable
             AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(differencedData, i);
             if(!augmentedDickeyFuller.isNeedsDiff())
             {
-                System.out.println("i="+i+",data are stationary");
                 stationarityCounterAcf++;
             }
         }
@@ -437,7 +436,7 @@ public class DataProcessingController implements Initializable
             isStationaryLabel.setText("Τα δεδομένα είναι σταθερά!");
             isStationaryLabel.setVisible(true);
             //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
-            Plots.plotAcf(differecedTimeSeries,lagValue);
+            Plots.plotAcf(differencedTimeSeries,lagValue);
             thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ ΜA(q)");
             thirdStepLabel.setVisible(true);
             qParameterLabel.setVisible(true);
@@ -465,7 +464,7 @@ public class DataProcessingController implements Initializable
 
     }
 
-    //Καλούμε την μέθοδο όταν τα δεδομένα είναι σταθερά
+    //Καλούμε τη μέθοδο όταν τα δεδομένα είναι σταθερά
     public void startAcfPlot(ActionEvent event)
     {
 

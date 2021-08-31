@@ -74,8 +74,8 @@ public class StartPageController
             {
                 ObservableList<String> listView = FXCollections.observableArrayList();
                 listView.setAll(DataQuery.getDataName());
-                /*Με την χρήση της μεθόδου runLater() το νήμα του JavaFx
-                 * αλλάζει την σκηνή. */
+                /*Με τη χρήση της μεθόδου runLater() το νήμα του JavaFx
+                 * αλλάζει τη σκηνή. */
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run()

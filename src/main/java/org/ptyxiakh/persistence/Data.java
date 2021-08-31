@@ -14,7 +14,7 @@ public class Data
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
-    //Bάζω @Column(unique = true) για αποφυγή ίδιων τιμών στην βάση δεδομένων
+    //Βάζω @Column(unique = true) για αποφυγή ίδιων τιμών στη βάση δεδομένων
     @Column(unique = true)
     private String name;
 

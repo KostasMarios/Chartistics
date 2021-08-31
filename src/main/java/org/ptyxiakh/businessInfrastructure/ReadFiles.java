@@ -53,7 +53,7 @@ public class ReadFiles
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
 
-        // Αν δεν βρεθεί το αρχείο εμφάνισε κατάλληλο μήνυμα
+        // Αν δε βρεθεί το αρχείο εμφάνισε κατάλληλο μήνυμα
         if (inputStream == null)
         {
             throw new IllegalArgumentException("file not found! " + fileName);
