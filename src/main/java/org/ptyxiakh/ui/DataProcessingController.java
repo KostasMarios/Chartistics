@@ -393,75 +393,72 @@ public class DataProcessingController implements Initializable
         {
             isStationaryLabel.setText("Εισάγεται τιμή για τη διαφορά d!!!");
             isStationaryLabel.setVisible(true);
+            System.out.println("Empty "+differenceTextField);
         }
         else if (Integer.parseInt(differenceTextField.getText())<0)
         {
             isStationaryLabel.setText("Εισάγεται θετική τιμή για τη διαφορά d !!!");
             isStationaryLabel.setVisible(true);
+            System.out.println("Negative "+differenceTextField.getText());
         }
-        else
-        {
+        else {
             times = Integer.parseInt(differenceTextField.getText());
-        }
-        TimeSeries timeSeries = new TimeSeries(doublePrimitiveArray);
-        TimeSeries differencedTimeSeries = timeSeries.difference(1,times);
-        double[] differencedData = TimeSeries.difference(doublePrimitiveArray,1,times);
+            System.out.println("Correct " + differenceTextField.getText());
 
-        //Έλεγχος με τον AugmentedDickeyFuller της σταθερότητας των δεδομένων
-        //που έγινε η χρήση της μεθόδου της διαφοράς
-        for(int i=1;i<=12;i++)
-        {
-            AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(differencedData, i);
-            if(!augmentedDickeyFuller.isNeedsDiff())
-            {
-                stationarityCounterAcf++;
+            TimeSeries timeSeries = new TimeSeries(doublePrimitiveArray);
+            TimeSeries differencedTimeSeries = timeSeries.difference(1, times);
+            double[] differencedData = TimeSeries.difference(doublePrimitiveArray, 1, times);
+
+            //Έλεγχος με τον AugmentedDickeyFuller της σταθερότητας των δεδομένων
+            //που έγινε η χρήση της μεθόδου της διαφοράς
+            for (int i = 1; i <= 12; i++) {
+                AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(differencedData, i);
+                if (!augmentedDickeyFuller.isNeedsDiff()) {
+                    stationarityCounterAcf++;
+                }
+            }
+            if (stationarityCounterAcf == 0) {
+                isStationaryLabel.setText("Τα δεδομένα δεν είναι σταθερά!");
+                isStationaryLabel.setVisible(true);
+                thirdStepLabel.setVisible(false);
+                qParameterLabel.setVisible(false);
+                qParameterText.setVisible(false);
+                qParameterTextField.setVisible(false);
+                fourthStepLabel.setVisible(false);
+                pacfPlotButton.setVisible(false);
+                pParameterTextField.setVisible(false);
+                pParameterLabel.setVisible(false);
+                pParameterText.setVisible(false);
+                System.out.println("stationarityCounterAcf=0");
+            } else {
+                isStationaryLabel.setText("Τα δεδομένα είναι σταθερά!");
+                isStationaryLabel.setVisible(true);
+                //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
+                Plots.plotAcf(differencedTimeSeries, lagValue);
+                thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ ΜA(q)");
+                thirdStepLabel.setVisible(true);
+                qParameterLabel.setVisible(true);
+                qParameterText.setVisible(true);
+                qParameterTextField.setVisible(true);
+                fourthStepLabel.setVisible(true);
+                pacfPlotButton.setVisible(true);
+                pParameterTextField.setVisible(true);
+                pParameterLabel.setVisible(true);
+                pParameterText.setVisible(true);
+
+                pacfPlotButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Plots.plotPacf(differencedData, lagValue);
+                        arimaStepLabel.setVisible(true);
+                        arimaButton.setVisible(true);
+                        forecastSizeLabel.setVisible(true);
+                        forecastSizeTextField.setVisible(true);
+                    }
+                });
+
             }
         }
-        if (stationarityCounterAcf==0)
-        {
-            isStationaryLabel.setText("Τα δεδομένα δεν είναι σταθερά!");
-            isStationaryLabel.setVisible(true);
-            thirdStepLabel.setVisible(false);
-            qParameterLabel.setVisible(false);
-            qParameterText.setVisible(false);
-            qParameterTextField.setVisible(false);
-            fourthStepLabel.setVisible(false);
-            pacfPlotButton.setVisible(false);
-            pParameterTextField.setVisible(false);
-            pParameterLabel.setVisible(false);
-            pParameterText.setVisible(false);
-        }
-        else
-        {
-            isStationaryLabel.setText("Τα δεδομένα είναι σταθερά!");
-            isStationaryLabel.setVisible(true);
-            //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
-            Plots.plotAcf(differencedTimeSeries,lagValue);
-            thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ ΜA(q)");
-            thirdStepLabel.setVisible(true);
-            qParameterLabel.setVisible(true);
-            qParameterText.setVisible(true);
-            qParameterTextField.setVisible(true);
-            fourthStepLabel.setVisible(true);
-            pacfPlotButton.setVisible(true);
-            pParameterTextField.setVisible(true);
-            pParameterLabel.setVisible(true);
-            pParameterText.setVisible(true);
-
-            pacfPlotButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event)
-                {
-                    Plots.plotPacf(differencedData,lagValue);
-                    arimaStepLabel.setVisible(true);
-                    arimaButton.setVisible(true);
-                    forecastSizeLabel.setVisible(true);
-                    forecastSizeTextField.setVisible(true);
-                }
-            });
-
-        }
-
     }
 
     //Καλούμε τη μέθοδο όταν τα δεδομένα είναι σταθερά
@@ -483,6 +480,12 @@ public class DataProcessingController implements Initializable
             arimaLabel.setText("Βάλτε τιμή στις παραμέτρους!!!");
             arimaLabel.setVisible(true);
         }
+        //Έλεγχος ύπαρξης αρνητικής τιμής στις παραμέτρους
+        else if (Integer.parseInt(qParameterTextField.getText())<0 || Integer.parseInt(pParameterTextField.getText())<0 || Integer.parseInt(forecastSizeTextField.getText())<0)
+        {
+            arimaLabel.setText("Αρνητική τιμή σε παράμετρο!!!");
+            arimaLabel.setVisible(true);
+        }
         else
         {
             arimaLabel.setVisible(false);
@@ -497,11 +500,11 @@ public class DataProcessingController implements Initializable
             {
                 arimaResult +=df.format(forecastData[i]);
                 if (count < forecastData.length)
-                    arimaResult+=",";
+                    arimaResult+=" ";
                 count++;
             }
              //arimaResult+=".Τιμή RMSE:"+df.format(forecastResult.getRMSE());
-            arimaLabel.setText(arimaResult);
+            arimaLabel.setText(arimaResult.replaceAll(",","."));
             arimaLabel.setVisible(true);
         }
     }
