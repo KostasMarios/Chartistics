@@ -130,8 +130,8 @@ public class StartPageController
     {
         Map<String,Double> tableData = new LinkedHashMap<>();
         String dataName= " ";
-        String name = startpage_listView.getSelectionModel().getSelectedItem();
-        tableData = DataQuery.findData(name);
+        dataName = startpage_listView.getSelectionModel().getSelectedItem();
+        tableData = DataQuery.findData(dataName);
         /*Εμφάνιση της οθόνης επεξεργασίας των δεδομένων
          * και δημιουργία αντικειμένου dataProcessingController*/
         try

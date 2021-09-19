@@ -237,6 +237,8 @@ public class InternetDataController
      *την προτίμηση του χρήστη*/
     public void okClicked(ActionEvent event)
     {
+        //Εξαιτίας αλλαγής της σελίδας το www.quandl.com
+        //έγινε data.nasdaq.com, λειτουργεί και χωρίς την αλλαγή
         String urlString = "https://www.quandl.com/api/v3/datasets/";
         final String taskString;
         Map<String,String> dataItem = new HashMap<>();

@@ -143,7 +143,7 @@ public class DataProcessingController implements Initializable
         q=0;
         p=0;
         netSource=false;
-        qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι\nπάνω από το θετικό όριο.");
+        qParameterText.setText("Για την παράμετρο q βάζουμε το lag που είναι θετικό.");
         qParameterText.setVisible(false);
        firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
 //       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
@@ -202,7 +202,6 @@ public class DataProcessingController implements Initializable
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle old_toggle, Toggle new_toggle)
             {
-
                 if(diagramType.getSelectedToggle()!= null)
                 {
                     if(lineChartButton.isSelected())
@@ -216,7 +215,6 @@ public class DataProcessingController implements Initializable
                         {
                             seriesLineChart.getData().add(new XYChart.Data(mapEntry.getKey(),mapEntry.getValue()));
                         }
-
                         lineChart.getData().addAll(seriesLineChart);
                     }
                     else
