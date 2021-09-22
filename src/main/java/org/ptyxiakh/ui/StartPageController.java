@@ -21,7 +21,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-/*ΑThis class contains methods for the start screen specifically
+/*This class contains methods for the start screen specifically
  *for importing data from stored or the Internet
  * */
 public class StartPageController
