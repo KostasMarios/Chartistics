@@ -4,33 +4,33 @@ import javax.persistence.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-/*Η κλάση αυτή περιέχει βασικές ενέργειες για τη
-* διαχείριση των δεδομένων*/
+/*This class contains basic actions for
+*communication with the database. */
 public  class DataQuery
 {
-    //Η μέθοδος αποθηκεύει τα δεδομένα στη βάση δεδομένων
-    //επιστρέφει έναν ακέραιο με βάση τον οποίο εμφανίζει το κατάλληλο παράθυρο με το αντίστοιχο μήνυμα
+    // The method stores the data in the database
+    //returns an integer based on which displays the appropriate window with the corresponding message
     public static int create(String name, Map<String,Double> tableData)
     {
         int savingProcess;
         boolean successfulStorage = true;
-        //Η κλάση EntityManagerFactory παρέχει υποστήριξη για την κλάση EntityManager
+        //The EntityManagerFactory class provides support for the EntityManager class
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CHARTISTICS");
-        //Η κλάση EntityManager παρέχει τη σύνδεση στη βάση δεδομένων και
-        //διάφορες λειτουργίες
+        //The EntityManager class provides the connection to the database and
+        //various functions
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
         Data data = new Data(name);
-        //Δημιουργία αντικειμένων Measurements από τα δεδομένα του map
-        //και αποθήκευση στη βάση δεδομένων
+        //Create Measurements objects from Μap data
+        //and storage in the database
         tableData.forEach( (k,v) ->
         {
             Measurements measurement = new Measurements(k,v.doubleValue());
             data.getMeasurementsList().add(measurement);
         });
         entityManager.persist(data);
-        //Σε περίπτωση που παρουσιαστεί PersistenceException
-        //εμφάνισε μήνυμα διπλοεγγραφής
+        //If PersistenceException occurs
+        //displaye a message that this record already exists
         try
         {
             entityManager.flush();

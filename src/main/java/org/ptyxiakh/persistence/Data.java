@@ -3,18 +3,20 @@ package org.ptyxiakh.persistence;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-/*Η κλάση αυτή αποθηκεύει το όνομα του δεδομένου
- *που επέλεξε ο χρήστης και τις αντίστοιχες μετρήσεις*/
-/*Η κλάση με το σχόλιο @Entity αποτελεί οντότητα
-* δηλαδή τα αντικείμενα αυτά θα αποθηκευτούν στη βάση
-* μέσω του JPA*/
+/*This class stores the name of the data
+*selected by the user and the corresponding measurements
+**/
+
+/*The class with the comment @Entity is an entity
+ *these items will be stored in the database via the JPA
+ **/
 @Entity
 public class Data
 {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
-    //Βάζω @Column(unique = true) για αποφυγή ίδιων τιμών στη βάση δεδομένων
+    //I put @Column (unique = true) to avoid the same values in the database
     @Column(unique = true)
     private String name;
 

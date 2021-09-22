@@ -10,8 +10,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * H κλάση Popup εμφανίζει ένα παράθυρο σφάλματος
- * με το κατάλληλο μήνυμα λάθους
+ * The Popup class displays an error window
+ * with the appropriate error message
  */
 public class Popup
 {
@@ -39,7 +39,7 @@ public class Popup
     public void display(int type)
     {
         this.popupWindow.setTitle("ΣΦΑΛΜΑ");
-        //Έλεγχος τύπου σφάλματος
+        //Error type check
         switch (type)
         {
             case -2: this.label.setText("Παρουσιάστηκε κάποιο σφάλμα,παρακαλώ προσπαθήστε ξανά!");
@@ -52,11 +52,11 @@ public class Popup
        this.popupWindow.setScene(this.scene);
         this.popupWindow.showAndWait();
     }
-    //Μέθοδος εμφάνισης μηνυμάτων για την αποθήκευση των δεδομένων στη βάση δεδομένων
+    //Method of displaying messages to store data in the database
     public  void sqlPopUp(int type)
     {
         this.popupWindow.setTitle("ΕΙΔΟΠΟΙΗΣΗ");
-        //Έλεγχος τύπου σφάλματος
+        //Error type check
         switch (type)
         {
             case 1: label.setText("Αυτή η εγγραφή υπάρχει ήδη!");

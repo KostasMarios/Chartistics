@@ -7,9 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-/*Αυτή η κλάση διαβάζει αρχεία διαχωρίζοντάς τα με κόμμα
-  και αποθηκεύει τις τιμές σε map
- */
+/*ΑThis class reads files by comma and stores the values in a map
+ **/
 public class ReadFiles
 {
     TreeMap<String,String> fileData ;
@@ -46,13 +45,13 @@ public class ReadFiles
         fileData.clear();
     }
 
-    // Παίρνουμε το αρχείο από τον φάκελο με τους πόρους
+    //We get the file from the resources folder
     public InputStream getFileFromResourceAsStream(String fileName)
     {
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
 
-        // Αν δε βρεθεί το αρχείο εμφάνισε κατάλληλο μήνυμα
+        //If the file is not found, display an appropriate message
         if (inputStream == null)
         {
             throw new IllegalArgumentException("file not found! " + fileName);
@@ -61,6 +60,5 @@ public class ReadFiles
             return inputStream;
         }
     }
-
 }
 

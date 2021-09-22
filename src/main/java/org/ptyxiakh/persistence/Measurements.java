@@ -1,7 +1,7 @@
 package org.ptyxiakh.persistence;
 
 import javax.persistence.*;
-/*Η κλάση αυτή αποθηκεύει τις μετρήσεις της πληροφορίας*/
+/*This class stores the measurements of the information */
 @Entity
 public class Measurements
 {

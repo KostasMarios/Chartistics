@@ -21,10 +21,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-/*Αυτή η κλάση περιέχει μεθόδους για την οθόνη έναρξης
- * συγκεκριμένα για την εισαγωγή δεδομένων
- * από τα αποθηκευμένα ή το διαδίκτυο, καθώς και για
- *την περιήγηση.
+/*ΑThis class contains methods for the start screen specifically
+ *for importing data from stored or the Internet
  * */
 public class StartPageController
 {
@@ -64,9 +62,9 @@ public class StartPageController
     {
         progressIndicator.setVisible(true);
         dataLoadingLabel.setVisible(true);
-        /*Χρήση του Task για την εμφάνιση των αποθηκευμένων δεδομένων
-         * η διαδικασία θα γίνει σ' ενα νήμα παρασκηνίου
-         * */
+        /*Using the Task to display the stored data
+        *the process will be done in a background thread
+        * */
         task = new Task<Void>()
         {
             @Override
@@ -74,8 +72,9 @@ public class StartPageController
             {
                 ObservableList<String> listView = FXCollections.observableArrayList();
                 listView.setAll(DataQuery.getDataName());
-                /*Με τη χρήση της μεθόδου runLater() το νήμα του JavaFx
-                 * αλλάζει τη σκηνή. */
+                /*Using the runLater() method,
+                 *the JavaFx thread changes the scene
+                 **/
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run()
@@ -83,7 +82,7 @@ public class StartPageController
                         progressIndicator.setVisible(false);
                         dataLoadingLabel.setVisible(false);
                         startpage_listView.setItems(listView);
-                        //Εμφάνισε μήνυμα ότι η βάση είναι κενή
+                        //Show message that base is empty
                         if(startpage_listView.getItems().isEmpty())
                             noDataLabel.setVisible(true);
                         else
@@ -108,7 +107,7 @@ public class StartPageController
 
     public void InternetDataButtonClicked(ActionEvent event)
     {
-        /*Διαδικασία αλλαγής σκηνής*/
+        /*Scene change process */
         try {
             Stage stage = (Stage) e_button.getScene().getWindow();
             stage.close();
@@ -124,16 +123,18 @@ public class StartPageController
             ex.printStackTrace();
         }
     }
-    /*Η μέθοδος αυτή καλείτε όταν ο χρήστης επιλέγει
-     * αποθηκευμένα δεδομένα*/
+    /*This method is called when
+     *the user selects stored data
+     **/
     public  void okButtonClicked(ActionEvent event)
     {
         Map<String,Double> tableData = new LinkedHashMap<>();
         String dataName= " ";
         dataName = startpage_listView.getSelectionModel().getSelectedItem();
         tableData = DataQuery.findData(dataName);
-        /*Εμφάνιση της οθόνης επεξεργασίας των δεδομένων
-         * και δημιουργία αντικειμένου dataProcessingController*/
+        /*Display the data processing screen
+         *and create a data Processing Controller object
+         **/
         try
         {
             FXMLLoader loader = new FXMLLoader();

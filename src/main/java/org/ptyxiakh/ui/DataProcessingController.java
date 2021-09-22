@@ -39,7 +39,7 @@ import java.util.ResourceBundle;
 
 public class DataProcessingController implements Initializable
 {
-    //Κουμπί επιστροφής στην προηγούμενη οθόνη
+    //Return button to the previous screen
     @FXML
     private Button buckButton;
     @FXML
@@ -70,9 +70,8 @@ public class DataProcessingController implements Initializable
     private PieChart pieChart;
     @FXML
     private Label dataNameLabel;
-    //Κουμπί για έναρξη της διαδικασίας ελέγχου
-    //της στατικότητας των δεδομένων με τον
-    //αλγόριθμο Augmented Dickey Fuller
+    //Button to start the static data control process
+   // with the Augmented Dickey Fuller algorithm
     @FXML
     private Button augmentedDickeyFullerButton;
     @FXML
@@ -131,7 +130,7 @@ public class DataProcessingController implements Initializable
     private  Map<String,Double> tableData;
     private int lagValue;
     private boolean netSource;
-    //Δήλωση παραμέτρων Arima
+    //Arima parameter declaration
     int d,q,p;
     private Task<Void> task;
     private boolean callFromDatabase = false;
@@ -148,8 +147,8 @@ public class DataProcessingController implements Initializable
        firstStepLabel.setText("1)ΕΛΕΓΧΟΣ ΣΤΑΘΕΡΟΤΗΤΑΣ ΤΩΝ ΔΕΔΟΜΕΝΩΝ ME\nTON ΑΛΓΟΡΙΘΜΟ AUGMENTED DICKEY FULLER");
 //       lagTextLabel.setText("Εισάγεται την τιμή για το Lag(με τιμή <="+(int)(12*(Math.pow((tableData.size()/100),(1/4))))+"):");
     }
-    //Η μέθοδος αυτή χρησιμοποιείτε για να εντοπιστεί
-   //εάν η χρήση τις κλάσης γίνεται με δεδομένα της βάσης δεδομένων ή του διαδικτύου
+    //Use this method to determine if the class
+    // is being used with database or internet data
     public void setNetSource(boolean netSource) {
         this.netSource = netSource;
     }
@@ -168,35 +167,35 @@ public class DataProcessingController implements Initializable
             tableData=tableDataParam;
             dataNameLabel.setText(dataName);
 
-        //Συμπλήρωσε με μεμονωμένες τιμές την στήλη ημ/νία
+        //Fill in the date column with individual values
         dateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, String>, ObservableValue<String>>()
         {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, Double>, String> p)
             {
-                /*Επιστροφή ιδιότητας για ένα μόνο κελί,
-                 *δεν μπορούμε να χρησιμοποιήσουμε βρόχο εδώ
-                 *Για την πρώτη στήλη χρησιμοποιούμε το κλειδί της απεικόνισης*/
+                /*Return property for a single cell,
+                 *we can not use a loop here.
+                 *For the first column we use the display key */
                 return new SimpleStringProperty(p.getValue().getKey());
             }
         });
-        //Συμπλήρωσε τη στήλη με τις μετρήσεις
+        //Fill in the column with the measurements
         measurementsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, Double>, Double>, ObservableValue<Double>>()
         {
             @Override
             public ObservableValue<Double> call(TableColumn.CellDataFeatures<Map.Entry<String, Double>, Double> p)
             {
-                // Για τη δεύτερη στήλη χρησιμοποιούμε την τιμή του Map
+                //For the second column we use the Map value
                 return new SimpleObjectProperty(p.getValue().getValue());
             }
         });
 
-        //Δημιουργία ObservableArrayList με τα δεδομένα του Map
+        //Create ObservableArrayList with Map data
         ObservableList<Map.Entry<String, Double>> items = FXCollections.observableArrayList(tableDataParam.entrySet());
-        //Βάλε τα δεδομένα του ObservableList στο TableView
+        //Put the ObservableList data in TableView
         dataTable.getItems().addAll(items);
 
-        //Επιλογή διαγράμματος
+        //Chart selection
         diagramType.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
         {
             @Override
@@ -236,7 +235,7 @@ public class DataProcessingController implements Initializable
             }
         });
     }
-    //Μέθοδος επιστροφής στην προηγούμενη σκηνή
+    //Return to the previous scene method
     public void onBuckButton(ActionEvent event)
     {
         try
@@ -271,7 +270,7 @@ public class DataProcessingController implements Initializable
         }
     }
 
-    //Μέθοδος αποθήκευσης των δεδομένων
+    //Data storage method
     public void saveData(ActionEvent event)
     {
         savingDataLabel.setVisible(true);
@@ -315,26 +314,26 @@ public class DataProcessingController implements Initializable
 //        else
 //        {
 //            lagValue = Integer.parseInt(lagTextField.getText());
-            //Διαδικασία μετατροπής Double --> double
-            //1)Αποθηκεύουμε τις τιμές της απεικόνισης στη συλλογή Double
+            //Conversion process Double --> double
+            //1)We save the values of the Map in the Double collection
             DoublesCollection = tableData.values();
-            //2)Μετατροπή της συλλογής σε πίνακα
+            //2)Convert the collection to a table
             DoublesArray = DoublesCollection.toArray(new Double[DoublesCollection.size()]);
-            //3)Μετατροπή του πίνακα από αντικείμενα Double σε πρωτόγονo τύπο double
+            //3)Convert table from Double objects to primitive double type
             doublePrimitiveArray = ArrayUtils.toPrimitive(DoublesArray);
-            //O Αλγόριθμος AugmentedDickeyFuller με βάση τον αριθμό των lag ελέγχει εάν τα δεδομένα
-            //είναι σταθερά(stationary)
+            //The AugmentedDickeyFuller Algorithm based on the number of lag
+           // checks if the data are stationary
         for(int i=1;i<=lagValue;i++)
         {
             AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(doublePrimitiveArray, lagValue);
-            //Εάν βρεθεί σε κάποιο lag ότι τα δεδομένα είναι σταθερά αύξησε τον μετρητή
+            //If it is found in a lag that the data are stationary increase the counter
             if (!augmentedDickeyFuller.isNeedsDiff())
                 stationaryCounter++;
         }
-            //Διαδικασία επεξεργασίας των δεδομένων όταν αυτά δεν είναι σταθερά
+            //Data processing process when they are not stationary
             if(stationaryCounter==0)
             {
-                //Στο Label είναι δυνατή η αλλαγή γραμμής με τη χρήση \n
+                //In the Label it is possible to change the line using \n
                 stationarityLabel.setText("Τα δεδομένα δεν είναι σταθερά.\nΘα γίνει η κατάλληλη μετατροπή στο 2ο βήμα.");
                 stationarityLabel.setVisible(true);
                 nextStepLabel.setText("2)H ΜΕΘΟΔΟΣ ΤΗΣ ΔΙΑΦΟΡΑΣ ΚΑΙ\nΕΛΕΓΧΟΣ ΜΕ ΔΙΑΓΡΑΜΜΑ ΑΥΤΟΣΥΣΧΕΤΙΣΗΣ");
@@ -375,18 +374,18 @@ public class DataProcessingController implements Initializable
             }
     }
 
-    //Διαδικασία υλοποίησης της μεθόδου διαφοράς, εμφάνιση διαγράμματος αυτοσυσχέτισης
-    //και έλεγχος σταθερότητας
+    //Procedure for implementing the difference method,
+    //displaying an autocorrelation diagram and checking stationarity
     public void startDifferencing(ActionEvent event)
     {
-        //Μετρητής σταθερότητας
+        //Stationarity meter
         int times=0;
         int stationarityCounterAcf=0;
         isStationaryLabel.setVisible(false);
-        //Μέγιστη τιμή σφάλματος
+        //Maximum error value
         //int lagAcf = (int)(12*(Math.pow((tableData.size()/100),(1/4))));
 
-        //Ο χρήστης δίνει πόσες φορές θα εφαρμοστή η διαφορά
+        //The user gives how many times the difference will be applied
         if (differenceTextField.getText().isEmpty())
         {
             isStationaryLabel.setText("Εισάγεται τιμή για τη διαφορά d!!!");
@@ -405,8 +404,7 @@ public class DataProcessingController implements Initializable
             TimeSeries differencedTimeSeries = timeSeries.difference(1, times);
             double[] differencedData = TimeSeries.difference(doublePrimitiveArray, 1, times);
 
-            //Έλεγχος με τον AugmentedDickeyFuller της σταθερότητας των δεδομένων
-            //που έγινε η χρήση της μεθόδου της διαφοράς
+            //AugmentedDickeyFuller test of data stationarity
             for (int i = 1; i <= 12; i++) {
                 AugmentedDickeyFuller augmentedDickeyFuller = new AugmentedDickeyFuller(differencedData, i);
                 if (!augmentedDickeyFuller.isNeedsDiff())
@@ -432,7 +430,7 @@ public class DataProcessingController implements Initializable
             {
                 isStationaryLabel.setText("Τα δεδομένα είναι σταθερά!");
                 isStationaryLabel.setVisible(true);
-                //Εμφάνισε το διάγραμμα αυτοσυσχέτισης
+                //Display the autocorrelation diagram
                 Plots.plotAcf(differencedTimeSeries, lagValue);
                 thirdStepLabel.setText("3)ΕΙΣΑΓΕΤΑΙ ΤΗΝ ΤΙΜΗ ΜA(q)");
                 thirdStepLabel.setVisible(true);
@@ -462,7 +460,7 @@ public class DataProcessingController implements Initializable
         }
     }
 
-    //Καλούμε τη μέθοδο όταν τα δεδομένα είναι σταθερά
+    //We call the method when the data are stationary
     public void startAcfPlot(ActionEvent event)
     {
 
@@ -475,13 +473,13 @@ public class DataProcessingController implements Initializable
         int count = 1;
         DecimalFormat df = new DecimalFormat("#.##");
         String arimaResult = "Πρόβλεψη:";
-        //Έλεγχος ύπαρξης τιμής στις παραμέτρους
+        //Check the existence of a value in the parameters
         if (qParameterTextField.getText().isEmpty() || pParameterTextField.getText().isEmpty() || forecastSizeTextField.getText().isEmpty())
         {
             arimaLabel.setText("Βάλτε τιμή στις παραμέτρους!!!");
             arimaLabel.setVisible(true);
         }
-        //Έλεγχος ύπαρξης αρνητικής τιμής στις παραμέτρους
+        //Check for a negative value in the parameters
         else if (Integer.parseInt(qParameterTextField.getText())<0 || Integer.parseInt(pParameterTextField.getText())<0 || Integer.parseInt(forecastSizeTextField.getText())<0)
         {
             arimaLabel.setText("Αρνητική τιμή σε παράμετρο!!!");

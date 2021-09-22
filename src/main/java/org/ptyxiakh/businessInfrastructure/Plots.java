@@ -162,9 +162,9 @@ public class Plots {
 
     public static void plotPacf(double[] entries,int lag)
     {
-        //Μετατροπή double[] ---> Double[]
+        //Convert  double[] ---> Double[]
         Double[] arrayDouble = ArrayUtils.toObject(entries);
-        //Μετατροπή Double[] ---> List<Double>
+        //Convert  Double[] ---> List<Double>
         List<Double> listDouble = Arrays.asList(arrayDouble);
         final double[] pacf = Stats.getPacf(listDouble,lag);
         final double[] lags = new double[lag + 1];

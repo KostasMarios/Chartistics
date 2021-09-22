@@ -11,17 +11,17 @@ import java.util.*;
 
 public class JSON
 {
-    //Η λίστα metadataList αποθηκεύει πληροφορίες για τα δεδομένα
+    //The metadataList stores information about the data
     private ArrayList<String> metadataList = new ArrayList<>();
     private int responseCode;
-    //Αρχικοποίηση ενός αντικειμένου ροής εισόδου για την ανάγνωση json
+    //Initialize an input stream object for reading json
     InputStream jsonStream;
-    //Δημιουργία LinkedHashMap, ώστε να διατηρείτε η σειρά των δεδομένων
+    //Create LinkedHashMap to maintain data order
     private static  Map<String,Double> jsonTableData = new LinkedHashMap<>();
     private static String dataName;
 
-    //Η μέθοδος επιστρέφει έναν ακέραιο αριθμό
-    //για κάθε επιτυχή λήψη των δεδομένων ή ανεπιτυχή
+    //The method returns an integer
+    //for any successful or unsuccessful data download
     public int getQuandlData(String stringUrl)
     {
         int arraySize=1;
@@ -31,33 +31,33 @@ public class JSON
             URL url = new URL(stringUrl);
             if(!jsonTableData.isEmpty())
             jsonTableData.clear();
-            //Ανέλυσε τη διεύθυνση URL στο HttpsURLConnection για να ανοίξει η σύνδεση προκειμένου να ληφθούν τα δεδομένα JSON
+            //Analyze the URL in HttpsURLConnection to open the link to retrieve JSON data
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-            //Όρισε το αίτημα σε GET
+            //Set the request to GET
             httpsURLConnection.setRequestMethod("GET");
-            //Λάβε την κατάσταση απόκρισης του Rest API
+            //Get the Rest API response
             responseCode = httpsURLConnection.getResponseCode();
-            //Έλεγχος σε περίπτωση που υπάρξει κάποιο σφάλμα
+            //Check in case of an error
             if(responseCode != 200 && responseCode != 404)
             {
                 return -2;
             }
-            //Έλεγχος σε περίπτωση που δε βρεθούν τα δεδομένα
+            //Check in case the data is not found
             else  if ( responseCode == 404 )
             {
                 return 0;
             }
-            //Κανένα πρόβλημα
+            //No problem
             else
             {
                 jsonStream = httpsURLConnection.getInputStream();
                 Reader jsonStreamReader = new InputStreamReader(jsonStream, StandardCharsets.UTF_8);
-                //Δημιούργησε json αναγνώστη για να διαβάζει δεδομένα json από τον Ιστό
+                //Create json reader to read json data from web
                 JsonReader reader = Json.createReader(jsonStreamReader);
-                //Λάβε το ριζικό αντικείμενο json
+                //Get the json root object
                 JsonObject jsonObject = reader.readObject();
                 reader.close();
-                //Ανέλυσε το ριζικό αντικείμενο για πρόσβαση στις τιμές json
+                //Analyze the root object to access json values
                 JsonObject datasetObject =jsonObject.getJsonObject("dataset");
                 metadataList.add(datasetObject.getString("name"));
                 dataName = metadataList.get(0);
@@ -65,10 +65,10 @@ public class JSON
                 metadataList.add(datasetObject.getString("refreshed_at"));
                 metadataList.add(datasetObject.getString("newest_available_date"));
                 metadataList.add(datasetObject.getString("oldest_available_date"));
-                //Δημιουργία πίνακα json για τα ονόματα των στηλών του πίνακα
+                //Create a json table for the names of the table columns
                 JsonArray columnNames = datasetObject.getJsonArray("column_names");
-                //Διαδικασία διαχωρισμού των τιμών του πίνακα με κόμμα
-                //Εάν τα ονόματα των στηλών είναι περισσότερα από ένα, χρησιμοποιούμε κόμμα
+                //Procedure for separating table values by comma
+                //If the column names are more than one, we use a comma
                 for(JsonValue value : columnNames)
                 {
                     valueString += value.toString().replaceAll("\"","");
@@ -79,11 +79,11 @@ public class JSON
                 metadataList.add(valueString);
                 metadataList.add(datasetObject.getString("frequency"));
                 metadataList.add(datasetObject.getString("type"));
-                //Διαδικασία ανάκτησης των δεδομένων του πίνακα από το JSON
+                //Procedure for retrieving table data from JSON
                 JsonArray arrayObj = datasetObject.getJsonArray("data");
                 for(JsonValue value : arrayObj)
                 {
-                    //Διαδικασία αφαίρεσης αγκυλών από τα δεδομένα
+                    //Procedure for removing brackets from the data
                     if(value.toString().startsWith("[") && value.toString().endsWith("]"))
                     {
                         String jsonData = value.toString().replaceAll("(\\[|\\])","");
@@ -93,7 +93,7 @@ public class JSON
                 }
             }
         }
-        //Σε περίπτωση που δεν υπάρχει σύνδεση στο δίκτυο
+        //In case there is no network connection
         catch (IOException malformedURLException)
         {
             return -1;
@@ -101,7 +101,7 @@ public class JSON
         return 1;
     }
 
-    //Επιστρέφει πληροφορίες για τα δεδομένα
+    //Returns information about the data selected by the user
     public ArrayList<String> getMetadataList()
     {
         return metadataList;
@@ -112,7 +112,7 @@ public class JSON
     return dataName;
 }
 
-    //Επιστρέφει τα δεδομένα του πίνακα JSON
+    //Returns JSON table data
     public static Map<String,Double> getJsonTableData()
     {
         return jsonTableData;

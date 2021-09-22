@@ -27,9 +27,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /*
- * Με τον Internet Data Controller ο χρήστης επιλέγει τα δεδομένα που θέλει για κάποια χώρα ή παγκόσμια
- * και βλέπει πληροφορίες γι'αυτά.
- * Ο InternetDataController επικοινωνεί με την κλάση JSON
+ * With the Internet Data Controller the user selects the data he wants for a country or the world and sees information about them.
+ * The InternetDataController communicates with the JSON class
  * */
 public class InternetDataController
 {
@@ -38,8 +37,8 @@ public class InternetDataController
     ReadFiles readFiles;
     private ArrayList<String> metadataList = new ArrayList<>();
     int okButtonCounter = 0;
-    /*Με αυτή την απεικόνιση αντιστοιχείτε ο κωδικός του TitledPane με το
-     *id της κατηγορίας π.χ. bp_TitledPane -> BP
+    /*With this display you match the TitledPane code with the
+     *id of the category e.g. bp_TitledPane -> BP
      * */
     private Map<String,String> dataCategoryMap;
     private ObservableList<Map<String, String>> dataItems = FXCollections.<Map<String, String>>observableArrayList();
@@ -108,13 +107,13 @@ public class InternetDataController
     @FXML
     private ProgressIndicator  progressIndicator;
     private Task<Void> task;
-    //Βάζουμε true επειδή η φθίνουσα είναι τιμή προεπιλογής
+    //We set true because the descending value is the default value
     private boolean descOrderSelected = true;
 
-    //Η μέθοδος αυτή αφορά τις επιλογές για τα δεδομένα, τη χώρα και τη σειρά ταξινόμησης
+    //This method concerns options for data, country and sort order
     public void initialize()
     {
-        //Δημιουργία αντικειμένου JSON
+        //Create a JSON object
         json = new JSON();
         readFiles = new ReadFiles();
         readFiles.readFileData("xwres.txt");
@@ -212,7 +211,7 @@ public class InternetDataController
         tableView.isResizable();
         tableView.setPlaceholder(new Label("Ο πίνακας είναι κενός"));
 
-        //Αλλάζει την επιλογή του Radio Button ανάλογα με την επιλογή του χρήστη.
+        //Changes the selection of Radio Button depending on the user's choice
         orderToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
         {
             @Override
@@ -233,19 +232,18 @@ public class InternetDataController
         });
    }
 
-    /*Η μέθοδος αυτή συλλέγει τα δεδομένα από το Quandl με βάση
-     *την προτίμηση του χρήστη*/
+    /*This method collects data from Quandl based on user preference*/
     public void okClicked(ActionEvent event)
     {
-        //Εξαιτίας αλλαγής της σελίδας το www.quandl.com
-        //έγινε data.nasdaq.com, λειτουργεί και χωρίς την αλλαγή
+        //Due to the change of the page www.quandl.com
+        //became data.nasdaq.com, it works without the change
         String urlString = "https://www.quandl.com/api/v3/datasets/";
         final String taskString;
         Map<String,String> dataItem = new HashMap<>();
         dataLoadingLabel.setVisible(true);
         progressIndicator.setVisible(true);
-        //Όταν πατηθεί πάλι το κουμπί OK άδειασε τις μεταβλητές
-        //για να μπουν τα νέα δεδομένα
+        //When the OK button is pressed again,
+        //empty the variables to enter the new data
         if(okButtonCounter>0)
         {
             dataItems.clear();
@@ -291,7 +289,7 @@ public class InternetDataController
             protected Void call() throws Exception
             {
                 int typeError=json.getQuandlData(taskString);
-                //Οι εντολές αυτές εκτελούνται στο JavaFx thread
+                //These commands run in the JavaFx thread
                 Platform.runLater(new Runnable()
                 {
                     @Override
@@ -340,7 +338,7 @@ public class InternetDataController
         new Thread(task).start();
     }
 
-    //Επέστρεψε στην προηγούμενη οθόνη
+    //Return to the previous screen
     public void onBuckButton(ActionEvent event)
     {
         try
@@ -362,8 +360,8 @@ public class InternetDataController
     }
 
     /**
-     * Όταν κληθεί αυτή η μέθοδος, τα δεδομένα που επιλέξαμε
-     * θα εμφανιστούν στο παράθυρο επεξεργασίας
+     * When this method is called, the selected data
+     * will be displayed in the edit window
      */
     public void nextClicked(ActionEvent event)
     {
@@ -390,7 +388,7 @@ public class InternetDataController
         }
     }
 
-    //Μέθοδος εμφάνισης των δεδομένων στα κελιά του Table View
+    //Method of displaying data in Table View cells
     public static final Callback<TableColumn<Map,String>, TableCell<Map,String>> WRAPPING_CELL_FACTORY =
             new Callback<TableColumn<Map,String>, TableCell<Map,String>>()
             {
