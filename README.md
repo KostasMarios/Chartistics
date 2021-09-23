@@ -8,3 +8,7 @@ More specifically the user can select some data  for a country, also can save th
 * The build automation tool for this project is Maven.
 * For the database I used MySQL and to store objects in the database I used JPA/Hibernate.
 * The application data comes from Nasdaq Json API.
+\
+**Extra Info**
+* This app is my thesis.
+* For short I named the application Chartistics.
